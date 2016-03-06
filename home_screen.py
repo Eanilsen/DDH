@@ -10,7 +10,7 @@ class HomeScreen(FloatLayout):
 
         self.add_widget(Image(source='background.jpg', allow_stretch=True, keep_ratio=False))
 
-        label = Label(text='Welcome to DDH!', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
+        label = Label(text='I was built in python!', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
         self.add_widget(label)
 
         self.buttons = Buttons(size_hint=(.25, .15), pos_hint={'center_x' : .5, 'center_y' : .5})
@@ -33,4 +33,3 @@ class Buttons(BoxLayout):
 
         character_button = Button(text='Characters')
         self.add_widget(character_button)
-
