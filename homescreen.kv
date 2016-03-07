@@ -26,6 +26,9 @@
             text: 'Characters'
             
     Button:
+		id: btnQuit
         text: 'Quit'
         size_hint: (.10, .05)
         pos_hint: {'center_x': .95, 'bottom_y': .025}
+		on_press: app.stop()
+		
