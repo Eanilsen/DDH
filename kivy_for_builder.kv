@@ -1,0 +1,80 @@
+# File name: builder.py
+#: kivy 1.9.1
+
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+#: import Canvas kivy.graphics.instructions.Canvas
+
+	
+ScreenManagement:
+	transition: FadeTransition()
+	HomeScreen:
+	HostScreen:
+	
+<HomeScreen>:
+	name: "home_screen"
+	Image: 
+		source: "background.jpg"
+		keep_ratio: False
+		allow_stretch: True
+		
+	FloatLayout:
+		Label: 
+			text: "~~ Welcome to DDH ~~"
+			font_size: '30sp'
+			size_hint: (.25, .10)
+			pos_hint: {'center_x': .5, 'center_y': .70}
+	
+		BoxLayout:	
+			orientation: 'vertical'
+			size_hint: (.25, .25)
+			pos_hint: {'center_x': .5, 'center_y': .5}
+			spacing: 5
+			
+			Button:
+				text: "Host"
+				on_release: app.root.current = "host_screen"
+				
+			Button:
+				text: "Enter Game"
+				
+					
+			Button:
+				text: "Paint!"
+				on_release: app.root.current = "host_screen"
+								
+			Button:
+				text: "Character"
+				
+		Button:
+			text: 'Quit'
+			size_hint: (.10, .05)
+			pos_hint: {'center_x': .95, 'bottom_y': .025}
+			on_press: app.stop()	
+	
+<HostScreen>:
+	name: "host_screen"
+	FloatLayout:
+		DrawInput	
+		Button:
+			color: 0, 1, 0, 1
+			size_hint: 0.3, 0.2
+			text: "Back Home"
+			on_release: app.root.current = "home_screen"
+			pos_hint: {"right":1, "top":1}
+			
+		Button:
+			color: 0, 1, 1, 1
+			size_hint: 0.3, 0.2
+			text: "Clear"
+			on_release: app.Canvas.clear
+			pos_hint: {"right":1, "bottom":1}
+	
+<CharacterScreen>:
+	name: "Character"
+
+
+		
+
+	
+
+
