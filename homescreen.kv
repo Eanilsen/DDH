@@ -1,0 +1,31 @@
+# File name: home_screen_using_kv.py
+#: kivy 1.9.1
+
+<FloatLayout>:
+    Image:
+        source: "background.jpg"
+        keep_ratio: False
+        allow_stretch: True
+
+    Label:
+        text: "I was built in .kv!"
+        font_size: '20sp'
+        size_hint: (.25, .10)
+        pos_hint: {'center_x': .5, 'center_y': .70}
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (.25, .15)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        spacing: 5
+        Button:
+            text: 'Join'
+        Button:
+            text: 'Host'
+        Button:
+            text: 'Characters'
+            
+    Button:
+        text: 'Quit'
+        size_hint: (.10, .05)
+        pos_hint: {'center_x': .95, 'bottom_y': .025}
