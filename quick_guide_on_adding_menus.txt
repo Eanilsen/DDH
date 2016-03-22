@@ -1,0 +1,68 @@
+
+This is a short text describing how to work with the current UI-controller.
+Even though it is not very difficult to use there are some quirks that are
+better to have written down for the convenience of all contributors 
+(in particular those with little or no experience with kivy or python).
+
+NOTE: A full example of this can already be seen in the files 
+"ui-controller.py", "HomeScreen.kv" and "JoinScreen.kv". You can skip this
+guide and check out those instead if you are more of an explorer than a reader.
+
+Step by step on how to add a new screen so that it shows up can be dirceted to
+and from other screens.
+
+1.  Use kvlang, which is the .kv extension. Screens built in python will not be
+    accepted for the sake of consistency. See the docs at 
+    https://kivy.org/docs/ for more info.
+
+2.  In your kvlang code you should have one rule definiton with the name of the
+    screen you want to make. Rule definitons are enclosed with <>. Example:
+
+            <TestScreen>
+                name: "test"
+                Button:
+                    text: "testing"
+
+    Here we defined a screen named "testscreen" with a simple button.
+    The name you choose to use inside the <> matters for the ui-controller so
+    be consistent. The name field is used by the screenamanger to keep track
+    of the different menus, see step 4 for more info.
+
+3.  Add a new class to the the file "ui-controller.py". This class must have
+    the same name as the rule defintion you defined in your kvlang code.
+    Using the example from before, our class would look like this:
+
+            class TestScreen(Screen):
+                pass
+
+    A couple of things to note here: Avoid logic in these classes,
+    menu navigation should be handled in the kv code. The class MUST inherit
+    from screen (which is already imported).
+
+4.  Create a new instance of the class and add it to the screen manager:
+        
+            test = TestScreen()
+            sm.add_widget(test)
+
+    Now your screen is ready to be viewed! To add navigation to your screen
+    simply pick the screen you want to navigate from and add the line
+
+            on_release: root.manager.current = "name"
+
+    to any widget that supports events. The string "name" here is the
+    same as the one we defined for TestScreen in step 3. Example:
+
+            <SomeOtherScreen>
+                Button:
+                    text: "Go to testscreen"
+                    on_release: root.manager.current = "test"
+
+    In this example, pressing and releasing the button would close the 
+    SomeOtherScreen and open up the TestScreen.
+
+    And that's it! You can always replace on_relase with on_press or 
+    on_toch_move or whatever you feel is the most appropriate, though be
+    consistent with the other screens.
+
+WARNING: Do not attempt to create screens using the name Screen, ScreenManager,
+Builder or App. This is highly likely to cause errors!

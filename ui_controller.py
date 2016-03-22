@@ -4,7 +4,6 @@ from kivy.app import App
 from os import listdir
 import sys
 
-
 #add all the kv files in the current directory to the screenmanager
 for f in listdir("."):
     if f.lower().endswith(".kv"):
