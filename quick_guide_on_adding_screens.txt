@@ -11,9 +11,9 @@ guide and check out those instead if you are more of an explorer than a reader.
 Step by step on how to add a new screen so that it shows up can be dirceted to
 and from other screens.
 
-1.  Use kvlang, which is the .kv extension. Screens built in python will not be
-    accepted for the sake of consistency. See the docs at 
-    https://kivy.org/docs/ for more info.
+1.  First of all use kvlang, which is the .kv extension to build the screens.
+    Screens built in python will not bea ccepted for the sake of consistency.
+    See the docs at https://kivy.org/docs/ for more info.
 
 2.  In your kvlang code you should have one rule definiton with the name of the
     screen you want to make. Rule definitons are enclosed with <>. Example:
@@ -26,20 +26,25 @@ and from other screens.
     Here we defined a screen named "testscreen" with a simple button.
     The name you choose to use inside the <> matters for the ui-controller so
     be consistent. The name field is used by the screenamanger to keep track
-    of the different menus, see step 4 for more info.
+    of the different menus, see step 5 for more info.
 
-3.  Add a new class to the the file "ui-controller.py". This class must have
+3.  Once you are finished and would like to test screen, move it to same folder
+    as the file "ui-controller.py". The controller will only pick up on files
+    that are in the same directory as itself(for now at the very least).
+
+4.  Add a new class to the the file "ui-controller.py". This class must have
     the same name as the rule defintion you defined in your kvlang code.
     Using the example from before, our class would look like this:
 
             class TestScreen(Screen):
                 pass
 
-    A couple of things to note here: Avoid logic in these classes,
-    menu navigation should be handled in the kv code. The class MUST inherit
-    from screen (which is already imported).
+    A couple of things to note here: If you're only interested in the front end
+    then do not add or modify any logic to this or any other class, screen
+    navigation can be handled from inside the .kv code. Also the class MUST 
+    inherit from the kivy class Screen (which is already imported).
 
-4.  Create a new instance of the class and add it to the screen manager:
+5.  Create a new instance of the class and add it to the screen manager:
         
             test = TestScreen()
             sm.add_widget(test)
