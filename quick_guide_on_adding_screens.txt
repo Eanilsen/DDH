@@ -12,8 +12,8 @@ Step by step on how to add a new screen so that it shows up can be dirceted to
 and from other screens.
 
 1.  First of all use kvlang, which is the .kv extension to build the screens.
-    Screens built in python will not bea ccepted for the sake of consistency.
-    See the docs at https://kivy.org/docs/ for more info.
+    Screens built in python will not be accepted for the sake of consistency.
+    See the docs at https://kivy.org/docs/ if you are unfamiliar with kivy.
 
 2.  In your kvlang code you should have one rule definiton with the name of the
     screen you want to make. Rule definitons are enclosed with <>. Example:
@@ -28,9 +28,9 @@ and from other screens.
     be consistent. The name field is used by the screenamanger to keep track
     of the different menus, see step 5 for more info.
 
-3.  Once you are finished and would like to test screen, move it to same folder
-    as the file "ui-controller.py". The controller will only pick up on files
-    that are in the same directory as itself(for now at the very least).
+3.  Once you are finished and would like to test the screen, move it to same
+    folder as the file "ui-controller.py". The controller will only pick up 
+    on files that are in the same directory as itself(at least for now).
 
 4.  Add a new class to the the file "ui-controller.py". This class must have
     the same name as the rule defintion you defined in your kvlang code.
