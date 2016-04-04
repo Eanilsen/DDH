@@ -15,11 +15,16 @@ class HomeScreen(Screen):
 class JoinScreen(Screen):
     pass
 
+class CharacterScreen(Screen):
+    pass
+  
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()
 join = JoinScreen()
+char = CharacterScreen()
 sm.add_widget(home)
 sm.add_widget(join)
+sm.add_widget(char)
 
 class MyApp(App):
     def build(self):

@@ -1,0 +1,26 @@
+#: kivy 1.9.1
+
+<CharacterScreen>:
+    name: "char"
+    FloatLayout:
+        Image:
+            source: "images/background.jpg"
+            keep_ratio: False
+            allow_stretch: True
+        BoxLayout:
+            orientation: "vertical"
+            spacing: 15
+            pos_hint: {'center_x': .25, 'center_y': .85}
+            size_hint: (.5, .25)
+            Button:
+                text: "New Character"
+                size_hint: (.30, .15)
+            Button:
+                text: "Load Character"
+                size_hint: (.30, .15)
+        GridLayout:
+            cols: 2
+            Button:
+                text: "test"
+            
+            
