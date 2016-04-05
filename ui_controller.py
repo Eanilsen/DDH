@@ -21,7 +21,7 @@ class HostScreen(Screen):
     def printSomething(self):
         print "Something - Simen F. 2016"
     def printTextToConsole(self, text):
-        print self
+        print text
 
 
 sm = ScreenManager(transition=NoTransition())

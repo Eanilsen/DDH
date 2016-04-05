@@ -31,13 +31,18 @@
         # Name of the game that is being hosted.
         TextInput:
             id: server_name
-            text: 'Server Name'
+            hint_text: 'Server Name'
+            focus: False
+            text: ''
             size_hint: (1, .15)
             multiline: False
 
         # The amount of players that can join the game
         TextInput:
-            text: 'Maximum Players'
+            hint_text: 'Number of Maximum Players'
+            focus: False
+            text: ''
+            input_filter: 'int'
             size_hint: (1, .15)
 
         Button:
