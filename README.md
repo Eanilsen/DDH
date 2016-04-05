@@ -21,14 +21,14 @@ on youtube.
 
 ## Features
 These are some of the features we have planned:
--- Local game sessions hosted by a DM which players can join.
--- In-game stats, inventory and campaign progress updating. 
+* Local game sessions hosted by a DM which players can join.
+* In-game stats, inventory and campaign progress updating. 
     These updates can be saved and apllied to the next session, no need to start
     over.
--- Dice rolling for all your dice-rolling needs.
--- Character sheets with proper overview of your characters stats, skills, 
+* Dice rolling for all your dice-rolling needs.
+* Character sheets with proper overview of your characters stats, skills, 
     inventory etc. No more pen and paper!(unless that's how you like to roll)
--- Rules lookup
+* Rules lookup
 And more to come!
 
 
