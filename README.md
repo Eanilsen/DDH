@@ -29,7 +29,7 @@ These are some of the features we have planned:
 * Character sheets with proper overview of your characters stats, skills, 
     inventory etc. No more pen and paper!(unless that's how you like to roll)
 * Rules lookup
-And more to come!
+* And more to come!
 
 
 ## Setting up
