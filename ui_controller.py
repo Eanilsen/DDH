@@ -15,15 +15,29 @@ class HomeScreen(Screen):
 class JoinScreen(Screen):
     pass
 
+
+# Define functions in this class to call them with root.function() in HostScreen.kv
+class HostScreen(Screen):
+    def printSomething(self):
+        print "Something - Simen F. 2016"
+    def printTextToConsole(self, text):
+        print self
+
+
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()
 join = JoinScreen()
+host = HostScreen()
+
 sm.add_widget(home)
 sm.add_widget(join)
+sm.add_widget(host)
 
 class MyApp(App):
     def build(self):
         return sm
 
-if __name__=='__main__':
+
+
+if __name__ == '__main__':
     MyApp().run()

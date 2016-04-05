@@ -1,0 +1,59 @@
+#: kivy 1.9.1
+#: import TextInput kivy.uix.textinput
+
+<HostScreen>
+    name: "host"
+
+    Image:
+        source: 'background.jpg'
+        keep_ratio: False
+        allow_stretch: True
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (.5, .35)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        spacing: 5
+
+        canvas:
+            Color:
+                Rectangle:
+                    rgba: 0, 0, 0, .5
+                    pos: self.pos
+                    size: self.size + 50
+
+        Label:
+            text: "Server settings"
+            font_size: '30sp'
+            size_hint: (.25, .10)
+            pos_hint: {'center_x': .5, 'center_y': .70}
+
+        # Name of the game that is being hosted.
+        TextInput:
+            id: server_name
+            text: 'Server Name'
+            size_hint: (1, .15)
+            multiline: False
+
+        # The amount of players that can join the game
+        TextInput:
+            text: 'Maximum Players'
+            size_hint: (1, .15)
+
+        Button:
+            id: btnStart
+            text: 'Start Game'
+            size_hint: (.25, .09)
+            pos_hint: {'center_x': .90, 'bottom_y': .025}
+            on_release: root.printTextToConsole(server_name.text)
+
+    Button:
+        id: btnQuit
+        text: 'Back'
+        size_hint: (.10, .05)
+        pos_hint: {'center_x': .95, 'bottom_y': .025}
+        on_press: root.manager.current = "home"
+
+
+
+
