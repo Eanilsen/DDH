@@ -34,9 +34,9 @@ These are some of the features we have planned:
 
 ## Setting up
 
-To run the project as it is right now you need the following installed
--- A python interpreter (2.7)
--- The [kivy library](https://kivy.org/docs/installation/installation.html)
+To run the project as it is right now you need the following installed:
+* A python interpreter (2.7)
+* The [kivy library](https://kivy.org/docs/installation/installation.html)
 
 Then run the file 'ui_controller.py' to start the software. If you are
 unfamiliar with running python scripts then read [this](http://pythoncentral.io/execute-python-script-file-shell/)
