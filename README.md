@@ -16,7 +16,7 @@ For this application the chosen API is [kivy](https://kivy.org/#home).
 Why kivy? Well, because it's really neat. No really, it is. If you don't know
 it then I strongly recommened checking out their [pong](https://kivy.org/docs/tutorials/pong.html)
 tutorial and their [programming guide](https://kivy.org/docs/guide/basic.html).
-If you are more of the video-watching type then check out [sentdex](https://kivy.org/docs/guide/basic.html).
+If you are more of the video-watching type then check out [sentdex](https://www.youtube.com/watch?v=CYNWK2GpwgA&list=PLQVvvaa0QuDe_l6XiJ40yGTEqIKugAdTy).
 on youtube.
 
 ## Features
