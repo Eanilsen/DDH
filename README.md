@@ -45,7 +45,7 @@ article or check out the [python documentation](https://docs.python.org/3/)
 NOTE: We are still in very early developement stages, hence the lack of
 almost everything.
 
-## Liscence
+## Licence
 As of right now we have no liscencing. None, squat. It is our intention however
 that this project remains open source and free to use, edit and distribute. In
 the future we will look into MIT, GPL or whatever we feel is the most 
