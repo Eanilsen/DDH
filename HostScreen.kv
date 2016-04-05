@@ -50,7 +50,10 @@
             text: 'Start Game'
             size_hint: (.25, .09)
             pos_hint: {'center_x': .90, 'bottom_y': .025}
-            on_release: root.printTextToConsole(server_name.text)
+
+            # TODO server_name.text is the text inside the TextInput box Server name, use this as game name
+            on_press: root.printTextToConsole(server_name.text)
+            on_release: root.manager.current = 'game'
 
     Button:
         id: btnQuit

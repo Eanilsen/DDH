@@ -23,15 +23,20 @@ class HostScreen(Screen):
     def printTextToConsole(self, text):
         print text
 
+class GameScreen(Screen):
+    pass
+
 
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()
 join = JoinScreen()
 host = HostScreen()
+game = GameScreen()
 
 sm.add_widget(home)
 sm.add_widget(join)
 sm.add_widget(host)
+sm.add_widget(game)
 
 class MyApp(App):
     def build(self):
