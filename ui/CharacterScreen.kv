@@ -1,5 +1,4 @@
 #: kivy 1.9.1
-
 <CharacterScreen>:
     name: "char"
     FloatLayout:
@@ -13,18 +12,23 @@
             pos_hint: {'center_x': .25, 'center_y': .5}
             size_hint: (.5, .5)
             Button:
+                id: new_button
                 text: "New"
                 size_hint: (.30, .15)
             Button:
+                id: load_button
                 text: "Load Character"
                 size_hint: (.30, .15)
             Button:
+                id: save_button
                 text: "Save"
                 size_hint: (.30, .15)
             Button:
+                id: load_button
                 text: "Load"
                 size_hint: (.30, .15)
             Button:
+                id: join_button
                 text: "Join"
                 size_hint: (.30, .15)
         BoxLayout:
@@ -33,14 +37,17 @@
             pos_hint: {'center_x': .5, 'center_y': .85}
             size_hint: (.5, .20)
             Label:
+                id: name_label
                 text: "Name"
                 font_size: 24
                 size_hint: (.3, .1)
             Label:
+                id: class_label
                 text: "Class"
                 font_size: 24
                 size_hint: (.3, .1)
             Label:
+                id: hp_label
                 text: "HP"
                 font_size: 24
                 size_hint: (.3, .1)
@@ -50,14 +57,14 @@
             pos_hint: {'center_x': .9, 'center_y': .85}
             size_hint: (.5, .22)
             TextInput:
+                id: name_textinput
                 hint_text: "Enter name"
                 size_hint: (.6, .15)
             TextInput:
+                id: class_textinput
                 hint_text: "Enter class"
                 size_hint: (.6, .15)
             TextInput:
+                id: hp_textinput
                 hint_text: "Enter hp"
-                size_hint: (.6, .15)            
-        
-            
-            
+                size_hint: (.6, .15)                        
