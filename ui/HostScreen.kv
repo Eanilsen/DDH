@@ -3,13 +3,11 @@
 
 <HostScreen>
     name: "host"
-
+    id:host
     Image:
         source: "images/background.jpg"
         keep_ratio: False
         allow_stretch: True
-
-
 
     BoxLayout:
         orientation: 'vertical'
@@ -27,7 +25,7 @@
 
         Label:
             text: "Server settings"
-            font_size: '30sp'
+            font_size: '50sp'
             size_hint: (.25, .10)
             pos_hint: {'center_x': .5, 'center_y': .70}
 
@@ -40,7 +38,6 @@
             size_hint: (.4, .02)
             pos_hint: {'center_x': .5, 'center_y': .5}
             multiline: False
-
 
         TextInput:
             id: max_members # The amount of players that can join the game
@@ -58,8 +55,8 @@
             size_hint: (.4, .015)
             pos_hint: {'center_x': .5, 'center_y': .5}
             # TODO server_name.text is the text inside the TextInput box Server name, use this as game name
-            on_press: root.printTextToConsole(server_name.text)
-            on_release: root.manager.current = 'game'
+            on_press: root.set_text(server_name.text)
+            on_release: root.manager.current = "game"
 
     Button:
         id: btnQuit

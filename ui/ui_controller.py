@@ -14,18 +14,13 @@ class HomeScreen(Screen):
 
 class JoinScreen(Screen):
     pass
-
-
 # Define functions in this class to call them with root.function() in HostScreen.kv
 class HostScreen(Screen):
-    def printSomething(self):
-        print "Something - Simen F. 2016"
-    def printTextToConsole(self, text):
-        print text
+    def set_text(self, text):
+        sm.get_screen("game").ids.server_name.text = text
 
 class GameScreen(Screen):
     pass
-
 
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()

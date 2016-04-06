@@ -1,8 +1,7 @@
 #: kivy 1.9.1
 
-
 <GameScreen>
-    name: 'game'
+    name: "game"
 
     Image:
         source: "images/background.jpg"
@@ -11,6 +10,7 @@
 
     # This is the GameScreen layout, for now a Grid
     GridLayout:
+        id: layout
         col_default_width: 20
         row_default_height: 40
         row_force_default: True
@@ -19,6 +19,7 @@
         rows: 3
 
         Label:
-            text: 'Server Name (replace with server name from server_name.text'
+            id: server_name
+            #text: 'Server Name (replace with server name from server_name.text'
 
 
