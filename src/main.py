@@ -5,10 +5,7 @@ from os import listdir
 import sys
 
 #add all the kv files in the current directory to the screenmanager
-for f in listdir("."):
-    if f.lower().endswith(".kv"):
-        Builder.load_file(f)
-
+Builder.load_file("main.kv")
 class HomeScreen(Screen):
     pass
 
@@ -33,11 +30,12 @@ sm.add_widget(join)
 sm.add_widget(host)
 sm.add_widget(game)
 
-class MyApp(App):
+def get_sm():
+    return sm
+
+class DDH(App):
     def build(self):
         return sm
 
-
-
 if __name__ == '__main__':
-    MyApp().run()
+    DDH().run()
