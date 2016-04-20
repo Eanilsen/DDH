@@ -8,7 +8,6 @@ def die(x, y = 1):
     Parameter x is number of eyes on a die.
     Parameter y = 1 is the times to a die is rolled.
     """
-    
     result = []
     for i in range(y):
         result.append(random.randint(1, x))
