@@ -1,0 +1,128 @@
+#: kivy 1.9.1
+
+<HomeScreen>:
+    name: "home"
+    FloatLayout:
+        Image:
+            source: "images/background.jpg"
+            keep_ratio: False
+            allow_stretch: True
+
+        Label:
+            text: "Welcome to DDH!"
+            font_size: '20sp'
+            size_hint: (.25, .10)
+            pos_hint: {'center_x': .5, 'center_y': .70}
+
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: (.25, .15)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 5
+            Button:
+                text: 'Join'
+                on_release: root.manager.current = "join"
+            Button:
+                text: 'Host'
+                on_release: root.manager.current = "host"
+            Button:
+                text: 'Characters'
+                
+        Button:
+    		id: btnQuit
+            text: 'Quit'
+            size_hint: (.10, .05)
+            pos_hint: {'center_x': .95, 'bottom_y': .025}
+    		on_press: app.stop()
+    		
+<JoinScreen>
+    name: "join"
+    Button:
+        text: "Back to home"
+        on_release: root.manager.current = 'home'
+
+<HostScreen>
+    name: "host"
+    id:host
+    Image:
+        source: "images/background.jpg"
+        keep_ratio: False
+        allow_stretch: True
+
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (.8, .8)
+        pos_hint: {'center_x': .5, 'center_y': .5}
+        spacing: 5
+        padding: 0, 0, 0, 100 # Left, Top, Right, Bottom
+
+        canvas:
+            Color:                  # RedBlueGreenAlpha (RBGA)
+                rgba: 0, 0, 0, .5   # Black with 50% Alpha (opacity)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: "Server settings"
+            font_size: '50sp'
+            size_hint: (.25, .10)
+            pos_hint: {'center_x': .5, 'center_y': .70}
+
+
+        TextInput:
+            id: server_name # Name of the game that is being hosted.
+            hint_text: 'Server Name'
+            focus: False
+            text: ''
+            size_hint: (.4, .02)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            multiline: False
+
+        TextInput:
+            id: max_members # The amount of players that can join the game
+            hint_text: 'Number of Maximum Players'
+            focus: False
+            text: ''
+            input_filter: 'int'
+            size_hint: (.4, .02)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            multiline: False
+
+        Button:
+            id: btnStart
+            text: 'Start Game'
+            size_hint: (.4, .015)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            # TODO server_name.text is the text inside the TextInput box Server name, use this as game name
+            on_press: root.set_text(server_name.text)
+            on_release: root.manager.current = "game"
+
+    Button:
+        id: btnQuit
+        text: 'Back'
+        size_hint: (.10, .05)
+        pos_hint: {'center_x': .95, 'bottom_y': .025}
+        on_press: root.manager.current = "home"
+
+<GameScreen>
+    name: "game"
+
+    Image:
+        source: "images/background.jpg"
+        keep_ratio: False
+        allow_stretch: True
+
+    # This is the GameScreen layout, for now a Grid
+    GridLayout:
+        id: layout
+        col_default_width: 20
+        row_default_height: 40
+        row_force_default: True
+
+        cols: 3
+        rows: 3
+
+        Label:
+            id: server_name
+            #text: 'Server Name (replace with server name from server_name.text'
