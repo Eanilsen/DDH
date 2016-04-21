@@ -25,12 +25,6 @@ class CharacterScreen(Screen):
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()
 join = JoinScreen()
-<<<<<<< HEAD:ui/ui_controller.py
-char = CharacterScreen()
-sm.add_widget(home)
-sm.add_widget(join)
-sm.add_widget(char)
-=======
 host = HostScreen()
 game = GameScreen()
 
@@ -41,16 +35,10 @@ sm.add_widget(game)
 
 def get_sm():
     return sm
->>>>>>> develop:src/main.py
 
 class DDH(App):
     def build(self):
         return sm
 
-<<<<<<< HEAD:ui/ui_controller.py
-if __name__=='__main__':
-    MyApp().run()
-=======
 if __name__ == '__main__':
     DDH().run()
->>>>>>> develop:src/main.py
