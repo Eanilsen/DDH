@@ -21,7 +21,7 @@ class GameScreen(Screen):
 
 class CharacterScreen(Screen):
     pass
-  
+
 sm = ScreenManager(transition=NoTransition())
 home = HomeScreen()
 join = JoinScreen()
