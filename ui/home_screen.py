@@ -8,11 +8,11 @@ from kivy.uix.screenmanager import Screen
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super(HomeScreen, self).__init__(**kwargs)
+        self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
+        self.add_widget(self.background)
 
-        self.add_widget(Image(source='background.jpg', allow_stretch=True, keep_ratio=False))
-
-        label = Label(text='I was built in python!', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
-        self.add_widget(label)
+        self.label = Label(text='I was built in python!', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
+        self.add_widget(self.label)
 
         self.buttons = BoxLayout(size_hint=(.25, .15), pos_hint={'center_x' : .5, 'center_y' : .5})
         self.buttons.spacing = 5;
