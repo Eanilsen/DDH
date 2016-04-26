@@ -1,16 +1,11 @@
-import kivy
-kivy.require('1.9.1')
-
-try:
-    import cPickle as pickle
-except:
-    import pickle
-
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 
 import os
+import cPickle as pickle
+import kivy
+kivy.require('1.9.1')
 
 Builder.load_string("""
 <File_Handler>:
@@ -18,21 +13,27 @@ Builder.load_string("""
     Button:
         text: "open"
         on_release: file_handler.load(filechooser.path, filechooser.selection)
+    Button:
+        text: "save"
+        on_release: file_handler.serialize(filechooser.path, 'test')
     FileChooserIconView:
         id: filechooser
-        on_selection: file_handler.selected(filechooser.selection)
+        path: "../../saves/"
 """)
 
 class File_Handler(BoxLayout):
+    test = ['a','b','c',1,2,3]
+
     def load(self, path, filename):
-        with open(os.path.join(path, filename[0])) as f:
+        with open(os.path.join(path, filename[0]), 'rb') as f:
             print self.deserialize(f.read())
 
-    def selected(self, filename):
-        print "selected: %s" % filename[0]
+    def deserialize(self, file_string):
+        return pickle.loads(file_string)
 
-    def deserialize(self, filename):
-        return pickle.loads(filename)
+    def serialize(self, path, out_file):
+        with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
+            pickle.dump(self.test, of)
 
 
 class MyApp(App):
