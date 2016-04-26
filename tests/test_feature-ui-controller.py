@@ -33,6 +33,3 @@ def test_main():
     join = main.join
     isinstance(join, JoinScreen)
     assert_equal(join.name, 'join')
-
-
-test_joinscreen()
