@@ -1,4 +1,5 @@
 # Welcome to D&D Helper
+<a href='https://travis-ci.org/eanilsen/ddh'><img src='https://secure.travis-ci.org/eanilsen/ddh.png?branch=develop'></a>
 
 Tabletop RPG is fun. An exciting mix of imagination, storytelling and teamwork 
 make up the best of what fantasy has to offer. However, it can be hard for 
