@@ -1,7 +1,7 @@
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.app import App
-from home_screen import HomeScreen
-from join_screen import JoinScreen
+from ui.home_screen import HomeScreen
+from ui.join_screen import JoinScreen
 
 sm = ScreenManager(transition=NoTransition())
 
