@@ -8,6 +8,6 @@ language: python
 python:
   - "2.7"
 # Install dependencies
-install: pip install nose
+install: pip install nose kivy
 # Run tests
 script: nosetests
