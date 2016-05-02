@@ -13,6 +13,7 @@ install:
   - pip install nose
   - pip install hg+http://bitbucket.org/pygame/pygame
   - sudo pip install cython
+  - sudo pip install kivy
 
 # command to run tests
 script:
