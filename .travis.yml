@@ -10,10 +10,11 @@ before_install:
   - sudo apt-get install xvfb
 
 install:
+  - pip install nose
   - pip install hg+http://bitbucket.org/pygame/pygame
-  - pip install --upgrade cython pil --use-mirrors
+  - pip install --upgrade cython3 pil --use-mirrors
   - make
 
 # command to run tests
 script:
-  - xvfb-run -s "+extension GLX" make test
+  - nosetests
