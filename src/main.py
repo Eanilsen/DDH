@@ -1,41 +1,44 @@
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
-from kivy.lang import Builder
 from kivy.app import App
-from os import listdir
-import sys
-
-#add all the kv files in the current directory to the screenmanager
-Builder.load_file("main.kv")
-class HomeScreen(Screen):
-    pass
-
-class JoinScreen(Screen):
-    pass
-# Define functions in this class to call them with root.function() in HostScreen.kv
-class HostScreen(Screen):
-    def set_text(self, text):
-        sm.get_screen("game").ids.server_name.text = text
-
-class GameScreen(Screen):
-    pass
+from ui.home_screen import HomeScreen
+from ui.join_screen import JoinScreen
 
 sm = ScreenManager(transition=NoTransition())
-home = HomeScreen()
-join = JoinScreen()
-host = HostScreen()
-game = GameScreen()
 
+class Home(HomeScreen):
+    def __init__(self, **kwargs):
+        super(Home, self).__init__(**kwargs)
+        self.join_button.bind(on_release=switch_to_join)
+
+        self.quit_button.bind(on_release=exit_application);
+
+class Join(JoinScreen):
+    def __init__(self, **kwargs):
+        super(Join, self).__init__(**kwargs)
+        self.back_button.bind(on_release=switch_to_home)
+
+
+def switch_to_join(*args):
+    sm.current = 'join'
+
+def switch_to_home(*args):
+    sm.current = 'home'
+
+def exit_application(*args):
+    #This wrapper is necessary because storing exit(0) in on_release will
+    #exit the program immediatly after launch. Aslo, consider adding 
+    #more sophisticated error handling.
+    exit(0);
+
+home = Home(name='home')
 sm.add_widget(home)
+
+join = Join(name='join')
 sm.add_widget(join)
-sm.add_widget(host)
-sm.add_widget(game)
 
-def get_sm():
-    return sm
-
-class DDH(App):
+class MyApp(App):
     def build(self):
         return sm
 
 if __name__ == '__main__':
-    DDH().run()
+    MyApp().run()
