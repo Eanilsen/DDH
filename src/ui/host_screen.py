@@ -21,8 +21,8 @@ class HostScreen(Screen):
         self.add_widget(self.back_button)
 
         # The Box containing text inputs and a button to start game
-        self.box_layout = BoxLayout(orientation='vertical', size_hint=(.8, .8),
-                                    pos_hint={'center_x': .5, 'center_y': .5}, spacing= 5, padding_bottom=100)
+        self.box_layout = BoxLayout(orientation='vertical', size_hint=(.8, .8), padding=(0, 0, 0, 100),
+                                    pos_hint={'center_x': .5, 'center_y': .5}, spacing=5)
         self.add_widget(self.box_layout)
 
         # A label displaying the page name
