@@ -1,12 +1,12 @@
-# Welcome to D&D Helper
+# Welcome to RPG Helper
 
 Tabletop RPG is fun. An exciting mix of imagination, storytelling and teamwork 
 make up the best of what fantasy has to offer. However, it can be hard for 
 newcomers to fully access or grasp all of the concepts behind these games. 
-Likewise it can be hard for a DM (Dungeon Master) to manage all the information
+Likewise it can be hard for a GM (Game Master) to manage all the information
 or enforce all the rules that surface while playing. DDH is a software project
 aimed at creating an application that can ease the difficulty for both players
-and DMs during an RPG session.
+and GMs during an RPG session.
 
 ## About us
 We're five college students and RPG enthusiasts. Yup.
@@ -21,7 +21,7 @@ on youtube.
 
 ## Features
 These are some of the features we have planned:
-* Local game sessions hosted by a DM which players can join.
+* Local game sessions hosted by a GM which players can join.
 * In-game stats, inventory and campaign progress updating. 
     These updates can be saved and apllied to the next session, no need to start
     over.
