@@ -26,7 +26,7 @@ class HostScreen(Screen):
         self.add_widget(self.box_layout)
 
         # A label displaying the page name
-        self.label_server_settings = Label(text="Server Settigs", font_size=50, size_hint=(.25, .10),
+        self.label_server_settings = Label(text="Server Settings", font_size=50, size_hint=(.25, .10),
                                            pos_hint={'center_x': .5, 'center_y': .70})
         self.box_layout.add_widget(self.label_server_settings)
 
