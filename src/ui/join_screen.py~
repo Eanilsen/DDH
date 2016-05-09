@@ -10,8 +10,7 @@ from kivy.uix.screenmanager import Screen
 class JoinScreen(Screen):
     def __init__(self, **kwargs):
         super(JoinScreen, self).__init__(**kwargs)
-        self.background = Image(
-            source='images/background.jpg',
+        self.background = Image(source='images/background.jpg',
             allow_stretch=True,
             keep_ratio=False)
         self.add_widget(self.background)
