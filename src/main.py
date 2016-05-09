@@ -38,6 +38,10 @@ class Game(GameScreen):
 class Character(CharacterScreen):
     def __init__(self, **kwargs):
         super(Character, self).__init__(**kwargs)
+        self.back_button.bind(on_release=switch_to_home)
+
+class Players(object):
+    pass
 
 def switch_to_join(*args):
     sm.current = 'join'

@@ -2,6 +2,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.stacklayout import StackLayout
 from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
@@ -43,7 +44,7 @@ class GameScreen(Screen):
         self.tabbed_panel.add_widget(self.tab3)
 
         # Create information about other players
-        self.player1 = Button(text='Player 1', size_hint=(.6, .1))
+        self.player1 = Player("images/char.jpg", "Player 1")
         self.player2 = Button(text='Player 2', size_hint=(.6, .1))
         self.player3 = Button(text='Player 3', size_hint=(.6, .1))
         self.player4 = Button(text='Player 4', size_hint=(.6, .1))
@@ -58,12 +59,32 @@ class GameScreen(Screen):
 
         self.modular_panel.add_widget(self.all_players)
 
-
         # Create the outer_layout and add layouts to it
         self.outer_layout = BoxLayout(orientation='vertical')
         self.add_widget(self.outer_layout)
         self.outer_layout.add_widget(self.player_info_box)
         self.outer_layout.add_widget(self.modular_panel)
+
+class Player(object):
+    def __init__(self, image, name, **kwargs):
+        super(GameScreen, self).__init__(**kwargs)
+        self.image = Image(source=image)
+        self.name = Label(text=name)
+
+        grid = GridLayout(cols=2,
+                          row_force_default=True,
+                          row_default_height=40,
+                          row_default_width=120)
+        grid.add_widget(self.image)
+        grid.add_widget(self.name)
+
+
+
+
+
+
+
+
 
 """ This is how the old .kv made the buttons drag able:
 

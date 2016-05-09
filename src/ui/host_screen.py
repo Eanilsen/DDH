@@ -36,7 +36,8 @@ class HostScreen(Screen):
             I need a class or something (see kivy link) to make the canvas apply on the box layout and not take the whole
             screen.
         """
-        with self.canvas:
+        canvas = self.canvas
+        with canvas:
             Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
             self.rect = Rectangle(pos=self.center,
                                   size=(self.width, self.height / 2))
