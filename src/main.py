@@ -25,6 +25,11 @@ class Host(HostScreen):
     def __init__(self, **kwargs):
         super(Host, self).__init__(**kwargs)
         self.back_button.bind(on_release=switch_to_home)
+        self.host_game_button.bind(on_release=switch_to_game_screen)
+
+    def update_rect(self, *args):
+        self.rect.pos = self.pos
+        self.rect.size = self.size
 
 class Game(GameScreen):
     def __init__(self, **kwargs):
@@ -44,10 +49,10 @@ def switch_to_host_screen(*args):
     sm.current = 'host'
 
 def switch_to_game_screen(*args):
-    sm.current ='game'
+    sm.current = 'game'
 
 def switch_to_character_screen(*args):
-    sm.current ='character'
+    sm.current = 'character'
 
 def exit_application(*args):
     """This wrapper is necessary because storing exit(0) in on_release will
