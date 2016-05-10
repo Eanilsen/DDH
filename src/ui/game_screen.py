@@ -15,19 +15,19 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__(**kwargs)
         self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
-        with self.canvas:
-            Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
-            Rectangle(pos=self.pos, size=self.size)
 
         # Create character portrait, player name and the player_layout and add them together
-        self.character = Image(size_hint=(None, None), size=(80, 80), source="images/char.jpg")
+        self.character = Image(source="images/char.jpg",
+                               size_hint=(1, 1),
+                               pos_hint={'left_x': .1, 'center_y': .4})
         self.player_name = Label(text='Character Name')
-        self.player_info_box = BoxLayout(orientation='horizontal', spacing=30, size_hint=(1, None), height=80)
-        with self.canvas:
-            Color(1, 1, 1, .5) #TODO Make the canvas display in the upper left corner, not in the bottom!
-            Rectangle(pos=self.pos, size=self.size)
-        self.player_info_box.add_widget(self.player_name)
+        self.player_info_box = BoxLayout(orientation='horizontal',
+                                         spacing=20,
+                                         size_hint=(1, None),
+                                         height=120)
+
         self.player_info_box.add_widget(self.character)
+        self.player_info_box.add_widget(self.player_name)
 
         # Create 3 tabs and add them to a TabbedPanel, then add it to a modular_panel
         self.tab1 = TabbedPanelItem(text='Magic')
@@ -39,17 +39,21 @@ class GameScreen(Screen):
         self.tab3 = TabbedPanelItem(text='Character Traits')
         self.tab3.add_widget(Label(text='Add traits here'))
 
-        self.tabbed_panel = TabbedPanel(tab_pos='top_left', do_default_tab=False)
+        self.tabbed_panel = TabbedPanel(tab_pos='top_left',
+                                        do_default_tab=False)
         self.tabbed_panel.add_widget(self.tab1)
         self.tabbed_panel.add_widget(self.tab2)
         self.tabbed_panel.add_widget(self.tab3)
 
         # Create information about other players
-        self.player1 = Player("images/char.jpg", "Player 1")
-        self.player2 = Button(text='Player 2', size_hint=(.6, .1))
-        self.player3 = Button(text='Player 3', size_hint=(.6, .1))
-        self.player4 = Button(text='Player 4', size_hint=(.6, .1))
-        self.all_players = BoxLayout(orientation='vertical', spacing=1)
+        self.player1 = Player("images/char.jpg", "Player 1", "Paladin")
+        self.player2 = Player("images/char.jpg", "Player 2", "Magus")
+        self.player3 = Player("images/char.jpg", "Player 3", "Archer")
+        self.player4 = Player("images/char.jpg", "Player 4", "Alchemist")
+        self.all_players = BoxLayout(orientation='vertical',
+                                     spacing=10,
+                                     size_hint=(.2, .2),
+                                     pos_hint={'right_x': .5, 'center_y': .8})
         self.all_players.add_widget(self.player1)
         self.all_players.add_widget(self.player2)
         self.all_players.add_widget(self.player3)
@@ -57,31 +61,32 @@ class GameScreen(Screen):
 
         self.modular_panel = BoxLayout(orientation='horizontal')
         self.modular_panel.add_widget(self.tabbed_panel)
-
         self.modular_panel.add_widget(self.all_players)
 
         # Create the outer_layout and add layouts to it
         self.outer_layout = BoxLayout(orientation='vertical')
         self.add_widget(self.outer_layout)
         self.outer_layout.add_widget(self.player_info_box)
+
         self.outer_layout.add_widget(self.modular_panel)
 
-class Player(Widget):
-    def __init__(self, image, name, **kwargs):
+class Player(GridLayout):
+    def __init__(self, image, name, role, **kwargs):
         super(Player, self).__init__(**kwargs)
-        self.image = Image(source=image)
         self.name = Label(text=name)
+        self.image = Image(source=image)
+        self.role = Label(text=role)
 
-        grid = GridLayout(cols=2,
-                          row_force_default=True,
-                          row_default_height=40,
-                          row_default_width=120)
-        grid.add_widget(self.image)
-        grid.add_widget(self.name)
-        self.add_widget(grid)
+        self.cols = 3
+        self.row_force_default = True
+        self.row_default_height = 40
+        self.row_default_width = 60
 
-        canvas = self.canvas
-        with canvas:
+        self.add_widget(self.image)
+        self.add_widget(self.name)
+        self.add_widget(self.role)
+
+        with self.canvas:
             Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
             self.rect = Rectangle(pos=self.center,
                                   size=(self.width / 1, self.height / 1))
