@@ -8,6 +8,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.widget import Widget
 
 class GameScreen(Screen):
     def __init__(self, **kwargs):
@@ -65,9 +66,9 @@ class GameScreen(Screen):
         self.outer_layout.add_widget(self.player_info_box)
         self.outer_layout.add_widget(self.modular_panel)
 
-class Player(object):
+class Player(Widget):
     def __init__(self, image, name, **kwargs):
-        super(GameScreen, self).__init__(**kwargs)
+        super(Player, self).__init__(**kwargs)
         self.image = Image(source=image)
         self.name = Label(text=name)
 
@@ -77,7 +78,20 @@ class Player(object):
                           row_default_width=120)
         grid.add_widget(self.image)
         grid.add_widget(self.name)
+        self.add_widget(grid)
 
+        canvas = self.canvas
+        with canvas:
+            Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
+            self.rect = Rectangle(pos=self.center,
+                                  size=(self.width / 1, self.height / 1))
+
+        self.bind(pos=self.update_rect)
+        self.bind(size=self.update_rect)
+
+    def update_rect(self, *args):
+        self.rect.pos = self.pos
+        self.rect.size = self.size
 
 
 

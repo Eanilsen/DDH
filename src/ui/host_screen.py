@@ -21,37 +21,16 @@ class HostScreen(Screen):
                                   pos_hint={'center_x': .95, 'bottom_y': .025})
         self.add_widget(self.back_button)
 
-        # The Box containing text inputs and a button to start game
-        self.box_layout = BoxLayout(orientation='vertical',
-                                    size_hint=(1.2, .8),
-                                    padding=(0, 0, 0, 100),
-                                    pos_hint={'center_x': .5, 'center_y': .5},
-                                    spacing=5)
-        """
-            https://kivy.org/docs/guide/graphics.html
-
-            In .kv files I was able to add the Canvas to the box_layout defined further down. Now, with .py files,
-            I can't do it anymore. When I use 'with self.canvas' I'm applying the canvas to the 'self', not the box_layout.
-
-            I need a class or something (see kivy link) to make the canvas apply on the box layout and not take the whole
-            screen.
-        """
-        canvas = self.canvas
-        with canvas:
-            Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
-            self.rect = Rectangle(pos=self.center,
-                                  size=(self.width, self.height / 2))
-        print self.rect.size
-        self.bind(pos=self.update_rect,
-                  size=self.update_rect)
-        self.add_widget(self.box_layout)
+        # CanvasLayout is a subclass of BoxLayout that adds a black background
+        self.canvas_layout = CanvasLayout()
+        self.add_widget(self.canvas_layout)
 
         # A label displaying the page name
-        self.label_server_settings = Label(text="Host a Game!",
-                                           font_size=40,
-                                           size_hint=(.25, .10),
-                                           pos_hint={'center_x': .5, 'center_y': .75})
-        self.box_layout.add_widget(self.label_server_settings)
+        self.label_host_game = Label(text="Host a Game!",
+                                     font_size=40,
+                                     size_hint=(.25, .10),
+                                     pos_hint={'center_x': .5, 'center_y': .8})
+        self.canvas_layout.add_widget(self.label_host_game)
 
         # Text input for the server name
         self.server_name_input = TextInput(hint_text='Server Name',
@@ -66,13 +45,14 @@ class HostScreen(Screen):
                                            input_filter='int',
                                            multiline=False)
 
+        # Container to add Server Name and Max Players on the same line
         self.ui_container = BoxLayout(orientation='horizontal',
                                       size_hint=(.4, .2),
                                       pos_hint={'center_x': .5, 'center_y': .5})
 
         self.ui_container.add_widget(self.server_name_input)
         self.ui_container.add_widget(self.max_players_input)
-        self.box_layout.add_widget(self.ui_container)
+        self.canvas_layout.add_widget(self.ui_container)
 
         self.description_input = TextInput(hint_text='Description',
                                            focus=False,
@@ -80,13 +60,32 @@ class HostScreen(Screen):
                                            pos_hint={'center_x': .5, 'center_y': .5},
                                            multiline=True)
 
-        self.box_layout.add_widget(self.description_input)
+        self.canvas_layout.add_widget(self.description_input)
 
         # The button to start a game
-        self.host_game_button = Button(text='Start Game',
-                                       size_hint=(.4, .05),
-                                       pos_hint={'center_x': .5, 'center_y': .5})
-        self.box_layout.add_widget(self.host_game_button)
+        self.start_game_button = Button(text='Start Game',
+                                        size_hint=(.4, .05),
+                                        pos_hint={'center_x': .5, 'center_y': .5})
+        self.canvas_layout.add_widget(self.start_game_button)
 
+class CanvasLayout(BoxLayout):
+    def __init__(self, **kwargs):
+        super(CanvasLayout, self).__init__(**kwargs)
+        self.orientation = 'vertical'
+        self.size_hint = (.8, .8)
+        self.padding = (0, 0, 0, 100)
+        self.pos_hint = {'center_x': .5, 'center_y': .5}
+        self.spacing = 5
 
+        canvas = self.canvas
+        with canvas:
+            Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
+            self.rect = Rectangle(pos=self.center,
+                                  size=(self.width / 2, self.height / 2))
 
+        self.bind(pos=self.update_rect)
+        self.bind(size=self.update_rect)
+
+    def update_rect(self, *args):
+        self.rect.pos = self.pos
+        self.rect.size = self.size

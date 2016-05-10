@@ -25,11 +25,9 @@ class Host(HostScreen):
     def __init__(self, **kwargs):
         super(Host, self).__init__(**kwargs)
         self.back_button.bind(on_release=switch_to_home)
-        self.host_game_button.bind(on_release=switch_to_game_screen)
+        self.start_game_button.bind(on_release=switch_to_game_screen)
 
-    def update_rect(self, *args):
-        self.rect.pos = self.pos
-        self.rect.size = self.size
+
 
 class Game(GameScreen):
     def __init__(self, **kwargs):
