@@ -1,6 +1,6 @@
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
-from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelItem
+from kivy.uix.tabbedpanel import *
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.label import Label
@@ -8,6 +8,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.dropdown import DropDown
+from random import random, shuffle
 from kivy.uix.widget import Widget
 
 class GameScreen(Screen):
@@ -17,21 +19,58 @@ class GameScreen(Screen):
         self.add_widget(self.background)
 
         # Create character portrait, player name and the player_layout and add them together
-        self.character = Image(source="images/char.jpg",
-                               size_hint=(1, 1),
-                               pos_hint={'left_x': .1, 'center_y': .4})
+        self.character = Image(source="images/char.jpg")
         self.player_name = Label(text='Character Name')
-        self.player_info_box = BoxLayout(orientation='horizontal',
-                                         spacing=20,
-                                         size_hint=(1, None),
-                                         height=120)
+        self.top_container = BoxLayout(orientation='horizontal',
+                                       size_hint=(1, .12))
+        self.character_information = StackLayout(orientation='lr-tb',
+                                                 spacing=10,
+                                                 pos_hint={'left_x': 1, 'center_y': .5})
+        self.character_information.add_widget(self.character)
+        self.character_information.add_widget(self.player_name)
 
-        self.player_info_box.add_widget(self.character)
-        self.player_info_box.add_widget(self.player_name)
+        self.options_panel = DropDown()
+        self.options_rules = Button(text='Options',
+                                    size_hint=(.2, .2))
+        self.options_rules.bind(on_release=lambda btn: self.options_panel.select(btn.text))
+        self.options_panel.add_widget(self.options_rules)
 
-        # Create 3 tabs and add them to a TabbedPanel, then add it to a modular_panel
-        self.tab1 = TabbedPanelItem(text='Magic')
-        self.tab1.add_widget(Label(text='Add magic information here'))
+        self.options_button = Button(text='Options',
+                                     size_hint=(None, None))
+        self.options_button.bind(on_release=self.options_panel.open)
+
+        self.top_container.add_widget(self.character_information)
+        self.top_container.add_widget(self.options_button)
+
+        self.bottom_container = BoxLayout(orientation='horizontal',
+                                          spacing=50)  # Spacing between tabbed_panel and all_players
+        self.bottom_container.add_widget(TabbedActivityContainer())
+        self.bottom_container.add_widget(PlayersPanel(6))
+
+        # Create the outer_layout and add containers to it
+        self.outer_layout = BoxLayout(orientation='vertical')
+        self.add_widget(self.outer_layout)
+        # This is the top container which holds character_information
+        self.outer_layout.add_widget(self.top_container)
+        # modular_panel holds the tabbed_panel and all_players containers
+        self.outer_layout.add_widget(self.bottom_container)
+
+'''
+    This is the tabbed container. Most of the information from Character Sheets
+    are displayed in the different tabs. You can choose what you want to view at any time.
+    for documentation: https://kivy.org/docs/api-kivy.uix.tabbedpanel.html
+'''
+class TabbedActivityContainer(TabbedPanel):
+    def __init__(self, **kwargs):
+        super(TabbedActivityContainer, self).__init__(**kwargs)
+
+        self.tab_pos = 'top_left'
+        self.do_default_tab = False
+        self.background_color = (0, 0, 0, .5)
+        self.size_hint = (.8, .8)
+        self.tab_width = 150
+
+
 
         self.tab2 = TabbedPanelItem(text='Useful Info')
         self.tab2.add_widget(Label(text='Add some useful information to display in tab 2'))
@@ -39,60 +78,88 @@ class GameScreen(Screen):
         self.tab3 = TabbedPanelItem(text='Character Traits')
         self.tab3.add_widget(Label(text='Add traits here'))
 
-        self.tabbed_panel = TabbedPanel(tab_pos='top_left',
-                                        do_default_tab=False)
-        self.tabbed_panel.add_widget(self.tab1)
-        self.tabbed_panel.add_widget(self.tab2)
-        self.tabbed_panel.add_widget(self.tab3)
+        self.tab4 = TabbedPanelItem(text='Add a tab!')
 
-        # Create information about other players
-        self.player1 = Player("images/char.jpg", "Player 1", "Paladin")
-        self.player2 = Player("images/char.jpg", "Player 2", "Magus")
-        self.player3 = Player("images/char.jpg", "Player 3", "Archer")
-        self.player4 = Player("images/char.jpg", "Player 4", "Alchemist")
-        self.all_players = BoxLayout(orientation='vertical',
-                                     spacing=10,
-                                     size_hint=(.2, .2),
-                                     pos_hint={'right_x': .5, 'center_y': .8})
-        self.all_players.add_widget(self.player1)
-        self.all_players.add_widget(self.player2)
-        self.all_players.add_widget(self.player3)
-        self.all_players.add_widget(self.player4)
+        # Properties for the tabs. Currently does nothing:
+        self.tabbed_strip = TabbedPanelStrip(background_color=(0,0,0,.5))
+        self.add_widget(self.tabbed_strip)
 
-        self.modular_panel = BoxLayout(orientation='horizontal')
-        self.modular_panel.add_widget(self.tabbed_panel)
-        self.modular_panel.add_widget(self.all_players)
+        self.add_widget(MagicTab())
+        self.add_widget(self.tab2)
+        self.add_widget(self.tab3)
 
-        # Create the outer_layout and add layouts to it
-        self.outer_layout = BoxLayout(orientation='vertical')
-        self.add_widget(self.outer_layout)
-        self.outer_layout.add_widget(self.player_info_box)
+'''
+    This is information about the tab that holds magic
+'''
+class MagicTab(TabbedPanelItem):
+    def __init__(self, **kwargs):
+        super(MagicTab, self).__init__(**kwargs)
+        self.text = 'Magic'
+        tab_magic_ui = StackLayout(orientation='tb-lr',
+                                        minimum_width=3100,
+                                        padding=(5, 5, 0, 0),
+                                        spacing=1)
+        spells = ["Fireball", "Healing Rain", "Taunt", "Holy Light", "Steady Shot",
+                  "Might", "Strike", "Dance"]
+        for i in range(0, len(spells)):
+            spell_string = spells[i]
+            tab_magic_ui.add_widget(Button(text=spell_string,
+                                                size_hint=(.2, .1)))  # Width of the buttons
+        self.add_widget(tab_magic_ui)
 
-        self.outer_layout.add_widget(self.modular_panel)
+'''
+    PlayersPanel use the Player class to add as many players as there are names in the array
+    player_names. I suggest that names are taken from character sheet and added there, or something
+    similar.
+'''
+class PlayersPanel(BoxLayout):
+    def __init__(self, player_amount, **kwargs):
+        super(PlayersPanel, self).__init__(**kwargs)
 
+        self.orientation = 'vertical'
+        self.spacing = 30
+        self.size_hint = (.2, .75)  # Will stop at the size of TabbedActivityContainer()
+        self.pos_hint = {'right_x': .5, 'bottom_y': .5}
+
+        # Sample players
+        player_names = ["Prof", "Django", "ZeltaVoid", "xXxSlayerxXx", "Init69", "Mao"]
+        player_roles = ["Paladin", "Magus", "Druid", "Alchemist", "Summoner", "Fighter", "Elitist"]
+        sample_portrait = ["images/illidan.jpg", "images/portrait1.jpg", "images/fighter.jpg", "images/pink.jpg",
+                           "images/archer.jpg", "images/char.jpg", "images/archer.jpg"]
+        for i in range(0, player_amount):
+            current_player = player_names.pop()
+            current_role = player_roles.pop()
+            current_image = sample_portrait.pop()
+            self.player = Player(current_image, current_player, current_role)
+            self.add_widget(self.player)
+
+'''
+    This class defines a single 'other player' Rectangle, the ones you see to the right
+    of the screen. Here you can change what should be displayed, such as the current:
+                                            Player name, Player role, Player portrait
+'''
 class Player(GridLayout):
     def __init__(self, image, name, role, **kwargs):
         super(Player, self).__init__(**kwargs)
-        self.name = Label(text=name)
-        self.image = Image(source=image)
-        self.role = Label(text=role)
-
-        self.cols = 3
-        self.row_force_default = True
-        self.row_default_height = 40
-        self.row_default_width = 60
-
-        self.add_widget(self.image)
-        self.add_widget(self.name)
-        self.add_widget(self.role)
-
+        color = (random(), 1, 1, .5)
         with self.canvas:
-            Color(0, 0, 0, .5)  # Black with 50 Opacity (RBGA)
-            self.rect = Rectangle(pos=self.center,
-                                  size=(self.width / 1, self.height / 1))
+            Color(*color, mode='hsv')  # Black with 50 Opacity (RBGA)
+            self.rect = Rectangle(source='images/texture.jpg',
+                                  pos=self.center,
+                                  size=(self.width, self.height))
+            print self.rect.size
 
         self.bind(pos=self.update_rect)
         self.bind(size=self.update_rect)
+
+        self.name = Label(text=name)
+        self.image = Image(source=image)
+        self.role = Label(text=role)
+        self.cols = 3
+
+        self.add_widget(self.name)
+        self.add_widget(self.role)
+        self.add_widget(self.image)
 
     def update_rect(self, *args):
         self.rect.pos = self.pos
