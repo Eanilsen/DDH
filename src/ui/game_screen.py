@@ -17,43 +17,40 @@ class GameScreen(Screen):
         super(GameScreen, self).__init__(**kwargs)
         self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
-
-        # Create character portrait, player name and the player_layout and add them together
-        self.character = Image(source="images/char.jpg")
-        self.player_name = Label(text='Character Name')
-        self.top_container = BoxLayout(orientation='horizontal',
-                                       size_hint=(1, .12))
-        self.character_information = StackLayout(orientation='lr-tb',
-                                                 spacing=10,
-                                                 pos_hint={'left_x': 1, 'center_y': .5})
-        self.character_information.add_widget(self.character)
-        self.character_information.add_widget(self.player_name)
-
-        self.options_panel = DropDown()
-        self.options_rules = Button(text='Options',
-                                    size_hint=(.2, .2))
-        self.options_rules.bind(on_release=lambda btn: self.options_panel.select(btn.text))
-        self.options_panel.add_widget(self.options_rules)
-
-        self.options_button = Button(text='Options',
-                                     size_hint=(None, None))
-        self.options_button.bind(on_release=self.options_panel.open)
-
-        self.top_container.add_widget(self.character_information)
-        self.top_container.add_widget(self.options_button)
-
+        # Create an outer layout for structure
+        self.outer_layout = BoxLayout(orientation='vertical')
+        # Create a bottom container, as opposite to the CharacterInformation() at the top
         self.bottom_container = BoxLayout(orientation='horizontal',
                                           spacing=50)  # Spacing between tabbed_panel and all_players
-        self.bottom_container.add_widget(TabbedActivityContainer())
-        self.bottom_container.add_widget(PlayersPanel(6))
-
-        # Create the outer_layout and add containers to it
-        self.outer_layout = BoxLayout(orientation='vertical')
         self.add_widget(self.outer_layout)
-        # This is the top container which holds character_information
-        self.outer_layout.add_widget(self.top_container)
+        # Add the tabbed container to the bottom layout
+        self.bottom_container.add_widget(TabbedActivityContainer())
+        # Add the player panel to the bottom layout
+        self.bottom_container.add_widget(PlayersPanel(6))
+        # This is the top container which holds character_information as opposite to the bottom container
+        self.outer_layout.add_widget(CharacterInformation())
         # modular_panel holds the tabbed_panel and all_players containers
         self.outer_layout.add_widget(self.bottom_container)
+
+
+class CharacterInformation(BoxLayout):
+    def __init__(self, **kwargs):
+        super(CharacterInformation, self).__init__(**kwargs)
+
+        self.orientation = 'horizontal'
+        self.size_hint = (1, .12)
+
+        character = Image(source="images/char.jpg")
+        player_name = Label(text='Character Name')
+        player_health = Label(text='1337/2000')
+        player_mana = Label(text='105/200')
+        text_box = BoxLayout(orientation='vertical')
+        text_box.add_widget(player_name)
+        text_box.add_widget(player_health)
+        text_box.add_widget(player_mana)
+
+        self.add_widget(character)
+        self.add_widget(text_box)
 
 '''
     This is the tabbed container. Most of the information from Character Sheets
@@ -70,8 +67,6 @@ class TabbedActivityContainer(TabbedPanel):
         self.size_hint = (.8, .8)
         self.tab_width = 150
 
-
-
         self.tab2 = TabbedPanelItem(text='Useful Info')
         self.tab2.add_widget(Label(text='Add some useful information to display in tab 2'))
 
@@ -84,7 +79,7 @@ class TabbedActivityContainer(TabbedPanel):
         self.tabbed_strip = TabbedPanelStrip(background_color=(0,0,0,.5))
         self.add_widget(self.tabbed_strip)
 
-        self.add_widget(MagicTab())
+        self.add_widget(MagicTab())  # TODO Do this with the other tabs as well!
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
 
@@ -96,15 +91,15 @@ class MagicTab(TabbedPanelItem):
         super(MagicTab, self).__init__(**kwargs)
         self.text = 'Magic'
         tab_magic_ui = StackLayout(orientation='tb-lr',
-                                        minimum_width=3100,
-                                        padding=(5, 5, 0, 0),
-                                        spacing=1)
+                                   minimum_width=3100,
+                                   padding=(5, 5, 0, 0),
+                                   spacing=1)
         spells = ["Fireball", "Healing Rain", "Taunt", "Holy Light", "Steady Shot",
                   "Might", "Strike", "Dance"]
         for i in range(0, len(spells)):
             spell_string = spells[i]
             tab_magic_ui.add_widget(Button(text=spell_string,
-                                                size_hint=(.2, .1)))  # Width of the buttons
+                                           size_hint=(.2, .1)))  # Width of the buttons
         self.add_widget(tab_magic_ui)
 
 '''
