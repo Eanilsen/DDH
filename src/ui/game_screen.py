@@ -8,9 +8,8 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.dropdown import DropDown
+from kivy.uix.dropdown import DropDown  # Used for dropdown
 from random import random, shuffle
-from kivy.uix.widget import Widget
 
 class GameScreen(Screen):
     def __init__(self, **kwargs):
