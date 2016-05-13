@@ -11,7 +11,6 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
 from kivy.graphics import Rectangle, Color
 
-
 class GameBox(BoxLayout):
     """
     Contains all the information about one specific game.
@@ -26,7 +25,6 @@ class GameBox(BoxLayout):
         self.add_widget(self.name)
         self.add_widget(self.players)
         self.add_widget(self.desc)
-
 
     def clear_highlights(self):
         """
@@ -54,10 +52,8 @@ class GameBox(BoxLayout):
                 #as highlighting
                 self.rectangle = Rectangle(
                     pos=(self.x, self.y),
-                    size=(self.width,
-                          self.height))
+                    size=(self.width, self.height * 0.8))
                 self.highlighted = True
-
 
 class GameOverView(BoxLayout):
     """
@@ -71,6 +67,27 @@ class GameOverView(BoxLayout):
         self.size_hint = (.8, .5)
         self.pos_hint = {'center_x': .5, 'center_y': .5}
 
+        self.titles = BoxLayout(orientation='horizontal')
+        self.add_widget(self.titles)
+
+        self.names = Label(
+            text='[i][b]Game Names[/b][/i]',
+            markup=True,
+            font_size='20sp')
+
+        self.num_players = Label(
+            text='[i][b]Number of Players[/b][/i]',
+            markup=True,
+            font_size='20sp')
+
+        self.descs = Label(
+            text='[i][b]Description[/b][/i]',
+            markup=True,
+            font_size='20sp')
+
+        self.titles.add_widget(self.names)
+        self.titles.add_widget(self.num_players)
+        self.titles.add_widget(self.descs)
         for game in games:
             self.add_widget(game)
             self.games_list.append(game)
@@ -92,7 +109,7 @@ class JoinScreen(Screen):
         self.float_layout = FloatLayout()
         self.add_widget(self.float_layout)
         #Sample game names, awaiting implemntation of dynamic entries until
-        #we have a server-client setup running
+        #we have a server-client prototype running
         self.gbox = GameBox('Name1', '0', 'Desc')
         self.gbox1 = GameBox('Name2', '1', 'Desc')
         self.gbox2 = GameBox('Name3', '2', 'Desc')
