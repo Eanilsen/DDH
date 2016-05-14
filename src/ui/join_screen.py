@@ -10,6 +10,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
 from kivy.graphics import Rectangle, Color
+from kivy.uix.popup import Popup
 
 class GameBox(BoxLayout):
     """
@@ -37,23 +38,53 @@ class GameBox(BoxLayout):
                 game.canvas.remove(game.rectangle)
                 game.highlighted = False
 
+    def show_confirmation(self):
+        """
+        Bring up a confirmation window so that users don't accidentally
+        enter wrong game. Additionally this serves as the final step before
+        attempting to connect to the host.
+        """
+        content = BoxLayout(
+            orientation='horizontal',
+            spacing=10,
+            size_hint=(.5, .5),
+            pos_hint={'center_x': .5, 'center_y': .5})
+
+        popup = Popup(
+            title='Are you sure you want to join %s\'s game?' % self.name.text,
+            size_hint=(.25, .25),
+            content=content)
+
+        confirm_button = Button(text='Confirm')
+        content.add_widget(confirm_button)
+
+        cancel_button = Button(text='Cancel')
+        cancel_button.bind(on_press=popup.dismiss)
+        content.add_widget(cancel_button)
+
+
+        popup.open()
+
     def on_touch_down(self, touch):
         """
         Define action of when a gamebox is pressed. Current functionality is to
         add a highlight to the most recently selected box
         """
         if self.collide_point(*touch.pos):
-            with self.canvas.before:
-                #Clear hihglights from other gameboxes
-                self.clear_highlights()
-            with self.canvas:
-                Color(0, 0, 1, .3)
-                #Create a rectangle equal to the size of the GameBox, serves
-                #as highlighting
-                self.rectangle = Rectangle(
-                    pos=(self.x, self.y),
-                    size=(self.width, self.height * 0.8))
-                self.highlighted = True
+            if touch.is_double_tap:
+                self.show_confirmation()
+            else:
+                with self.canvas.before:
+                    #Clear hihglights from other gameboxes
+                    self.clear_highlights()
+                with self.canvas:
+                    Color(0, 0, 1, .3)
+                    #Create a rectangle equal to the size of the GameBox, serves
+                    #as highlighting
+                    self.rectangle = Rectangle(
+                        pos=(self.x, self.y),
+                        size=(self.width, self.height * 0.8))
+                    self.highlighted = True
 
 class GameOverView(BoxLayout):
     """
@@ -125,17 +156,15 @@ class JoinScreen(Screen):
 
         self.buttons = BoxLayout(
             orientation='horizontal',
-            size_hint=(.5, .1),
+            size_hint=(.3, .1),
+            spacing=10,
             pos_hint={'center_x': .5, 'center_y': .2})
         self.add_widget(self.buttons)
 
-        self.join_button = Button(
-            text='Join Game',
-            pos_hint={'center_x': .5, 'center_y': .5})
+        self.join_button = Button(text='Join Game')
         self.buttons.add_widget(self.join_button)
-        self.filter_button = Button(
-            text='Filter',
-            pos_hint={'center_x': .5, 'center_y': .5})
+
+        self.filter_button = Button(text='Filter')
         self.buttons.add_widget(self.filter_button)
 
         self.back_button = Button(
