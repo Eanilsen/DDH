@@ -44,6 +44,30 @@ class GameBox(BoxLayout):
         enter wrong game. Additionally this serves as the final step before
         attempting to connect to the host.
         """
+        #use a variable to store the name text so that we can make checks
+        #if the game name was properly collected
+        conf_name = ''
+        #Check all avaiable games in the games_list for any highlights and
+        #store the content of that games' name.text in conf_name
+        if isinstance(self, Button):
+            for g in GameOverView.games_list:
+                if g.highlighted == True:
+                    conf_name = g.name.text
+                    break
+            #If the name field is sill empty the most logical reason is that the
+            #user did not select any game to join
+            if conf_name =='':
+                content = Label(
+                    text='You must select a game before joining',
+                    text_size=self.size,
+                    halign='center')
+                popup = Popup(size_hint=(.25, .25), content=content)
+                popup.open()
+                return
+
+        else:
+            conf_name = self.name.text
+
         content = BoxLayout(
             orientation='horizontal',
             spacing=10,
@@ -51,7 +75,8 @@ class GameBox(BoxLayout):
             pos_hint={'center_x': .5, 'center_y': .5})
 
         popup = Popup(
-            title='Are you sure you want to join %s\'s game?' % self.name.text,
+            title='Are you sure you want to join %s\'s game?' % conf_name,
+            halign='center',
             size_hint=(.25, .25),
             content=content)
 
@@ -61,7 +86,6 @@ class GameBox(BoxLayout):
         cancel_button = Button(text='Cancel')
         cancel_button.bind(on_press=popup.dismiss)
         content.add_widget(cancel_button)
-
 
         popup.open()
 
@@ -162,6 +186,7 @@ class JoinScreen(Screen):
         self.add_widget(self.buttons)
 
         self.join_button = Button(text='Join Game')
+        self.join_button.bind(on_press=GameBox.show_confirmation)
         self.buttons.add_widget(self.join_button)
 
         self.filter_button = Button(text='Filter')

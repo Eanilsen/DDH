@@ -11,7 +11,7 @@ class HomeScreen(Screen):
         self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
 
-        self.label = Label(text='I was built in python!', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
+        self.label = Label(text='Welcome to DDH', font_size='20sp', size_hint=(.25, .10), pos_hint={'center_x' : .5, 'center_y' : .70})
         self.add_widget(self.label)
 
         self.buttons = BoxLayout(size_hint=(.25, .15), pos_hint={'center_x' : .5, 'center_y' : .5})
