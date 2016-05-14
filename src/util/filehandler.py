@@ -1,3 +1,6 @@
+"""This module adds functionality for serializing(saving) and
+deserializing(loading) of objects using the cPickle library.
+"""
 import os
 import re
 import cPickle as pickle
@@ -39,8 +42,12 @@ Builder.load_string("""
 """)
 
 class LoadLayout(BoxLayout):
+    """The LoadLayout contains the filechooser and load button."""
 
     def load(self, path, filename):
+        """Finds the filename based on the path by finding the last '/' and
+        using whatever comes after as a filename.
+        """
         file_name = filename[0]
         file_index = [m.start() for m in re.finditer('/', file_name)]
         with open(os.path.join(path, file_name[file_index[-1]+1:]),
@@ -48,19 +55,26 @@ class LoadLayout(BoxLayout):
             print self.deserialize(in_file.read())
 
     def deserialize(self, file_string):
+        """Calls cPickle's load string function and returns the deserialized
+        string.
+        """
         return pickle.loads(file_string)
 
 
 class SaveLayout(BoxLayout):
+    """The SaveLayout contains the filechooser and save button."""
 
     test = ["aoeu", 1]
 
     def serialize(self, path, out_file):
+        """Serializes an object and saves it to a out_file with the given path.
+        """
         with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
             pickle.dump(self.test, of)
 
 
 def show_save_popup(self):
+    """Displays the SaveLayout as a popup contained in a BoxLayout."""
     sl = SaveLayout()
     content = BoxLayout()
     content.add_widget(sl)
@@ -68,8 +82,9 @@ def show_save_popup(self):
     popup.open()
 
 def show_load_popup(self):
+    """Displays the LoadLayout as a popup contained in a BoxLayout."""
     ll = LoadLayout()
-    content = FloatLayout()
+    content = BoxLayout()
     content.add_widget(ll)
     popup = Popup(title='Load file', content=content)
     popup.open()
