@@ -44,19 +44,19 @@ class GameBox(BoxLayout):
         enter wrong game. Additionally this serves as the final step before
         attempting to connect to the host.
         """
-        #use a variable to store the name text so that we can make checks
-        #if the game name was properly collected
+        #store the name text so that we can make checks if the game name was
+        #properly collected
         conf_name = ''
         #Check all avaiable games in the games_list for any highlights and
         #store the content of that games' name.text in conf_name
         if isinstance(self, Button):
-            for g in GameOverView.games_list:
-                if g.highlighted == True:
-                    conf_name = g.name.text
+            for game in GameOverView.games_list:
+                if game.highlighted:
+                    conf_name = game.name.text
                     break
             #If the name field is sill empty the most logical reason is that the
             #user did not select any game to join
-            if conf_name =='':
+            if conf_name == '':
                 content = Label(
                     text='You must select a game before joining',
                     text_size=self.size,
@@ -92,7 +92,8 @@ class GameBox(BoxLayout):
     def on_touch_down(self, touch):
         """
         Define action of when a gamebox is pressed. Current functionality is to
-        add a highlight to the most recently selected box
+        add a highlight to the most recently selected box and set the highlight
+        property to True
         """
         if self.collide_point(*touch.pos):
             if touch.is_double_tap:
@@ -165,6 +166,14 @@ class JoinScreen(Screen):
         self.add_widget(self.float_layout)
         #Sample game names, awaiting implemntation of dynamic entries until
         #we have a server-client prototype running
+
+        self.title = Label(
+            text='[i]Select a game to join[i]',
+            markup=True,
+            font_size='40sp',
+            pos_hint={'center_x': .5, 'center_y': .85})
+        self.add_widget(self.title)
+
         self.gbox = GameBox('Name1', '0', 'Desc')
         self.gbox1 = GameBox('Name2', '1', 'Desc')
         self.gbox2 = GameBox('Name3', '2', 'Desc')
@@ -189,7 +198,7 @@ class JoinScreen(Screen):
         self.join_button.bind(on_press=GameBox.show_confirmation)
         self.buttons.add_widget(self.join_button)
 
-        self.filter_button = Button(text='Filter')
+        self.filter_button = Button(text='Refresh')
         self.buttons.add_widget(self.filter_button)
 
         self.back_button = Button(
