@@ -1,6 +1,10 @@
 import os
 import re
-import cPickle as pickle
+import platform
+try:
+    import cPickle as pickle
+except:
+    import pickle
 
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
@@ -29,10 +33,6 @@ class FileHandler(BoxLayout):
 
     def show_load_popup(self, *args):
         load_btn = Button(text='Load', size_hint=(.08, .05))
-        load_callback = lambda load: self.load(
-            file_chooser.path,
-            file_chooser.selection)
-        load_btn.bind(on_release=load_callback)
         file_chooser = FileChooserIconView(path="../../saves")
 
         content = FloatLayout()
@@ -41,6 +41,10 @@ class FileHandler(BoxLayout):
         content.add_widget(load_btn)
 
         popup = Popup(title="Load a file", content=content)
+        load_callback = lambda load: self.load(
+            file_chooser.path,
+            file_chooser.selection, popup)
+        load_btn.bind(on_release=load_callback)
         popup.open()
 
     def show_save_popup(self, *args):
@@ -49,9 +53,6 @@ class FileHandler(BoxLayout):
             pos_hint={'center_x': .5, 'bottom_y': .05})
         save_btn = Button(text='Save', size_hint=(.08, .05))
         file_chooser = FileChooserIconView(path="../../saves")
-        serialize_callback = lambda save: self.serialize(
-            file_chooser.path, text_input.text)
-        save_btn.bind(on_release=serialize_callback)
 
         content = FloatLayout()
         content.clear_widgets()
@@ -60,21 +61,41 @@ class FileHandler(BoxLayout):
         content.add_widget(text_input)
 
         popup = Popup(title="Save a file", content=content)
+
+        serialize_callback = lambda save: self.serialize(
+            file_chooser.path, text_input.text, popup)
+        save_btn.bind(on_release=serialize_callback)
+
         popup.open()
 
-    def load(self, path, filename):
-        file_name = filename[0]
-        file_index = [m.start() for m in re.finditer('/', file_name)]
-        with open(os.path.join(path, file_name[file_index[-1]+1:]),
-                  'rb')as in_file:
-            print self.deserialize(in_file.read())
+    def load(self, path, filename, popup):
+        if platform.system() == "Linux":
+            try:
+                file_name = filename[0]
+                file_index = [m.start() for m in re.finditer('/', file_name)]
+                with open(os.path.join(path, file_name[file_index[-1]+1:]),
+                        'rb')as in_file:
+                    print self.deserialize(in_file.read())
+            except:
+                print "nope"
+        elif platform.system() == "Windows":
+            try:
+                file_name = filename[0]
+                file_index = [m.start() for m in re.finditer('\\', file_name)]
+                with open(os.path.join(path, file_name[file_index[-1]+1:]),
+                        'rb')as in_file:
+                    print self.deserialize(in_file.read())
+            except:
+                print "nope"
+        popup.dismiss()
 
     def deserialize(self, file_string):
         return pickle.loads(file_string)
 
-    def serialize(self, path, out_file):
+    def serialize(self, path, out_file, popup):
         with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
             pickle.dump(self.test, of)
+        popup.dismiss()
 
 class MyApp(App):
     def build(self):
