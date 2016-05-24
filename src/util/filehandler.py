@@ -7,7 +7,6 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.uix.button import Button
-from kivy.lang import Builder
 from kivy.uix.filechooser import FileChooserIconView
 from kivy.uix.textinput import TextInput
 import kivy
@@ -30,7 +29,7 @@ class FileHandler(BoxLayout):
 
     def show_load_popup(self, *args):
         load_btn = Button(text='Load', size_hint=(.08, .05))
-        load_callback = lambda load:self.load(
+        load_callback = lambda load: self.load(
             self.file_chooser.path,
             self.file_chooser.selection)
         load_btn.bind(on_release=load_callback)
@@ -49,7 +48,7 @@ class FileHandler(BoxLayout):
             size_hint=(.20, .05),
             pos_hint={'center_x': .5, 'bottom_y': .05})
         save_btn = Button(text='Save', size_hint=(.08, .05))
-        serialize_callback = lambda save:self.serialize(
+        serialize_callback = lambda save: self.serialize(
             self.file_chooser.path, text_input.text)
         save_btn.bind(on_release=serialize_callback)
         file_chooser = FileChooserIconView(path="../../saves")
