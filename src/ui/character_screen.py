@@ -5,6 +5,7 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
 from kivy.uix.textinput import TextInput
+from util import filehandler
 
 class CharacterScreen(Screen):
     def __init__(self, **kwargs):
@@ -100,3 +101,21 @@ class CharacterScreen(Screen):
             size_hint=(.10, .05),
             pos_hint={'center_x': .95, 'bottom_y': .025})
         self.layout.add_widget(self.back_button)
+
+        # Save and load related code
+        self.file_handler = filehandler.FileHandler()
+        self.save_button.bind(on_release=self.save)
+        self.load_button.bind(on_release=self.file_handler.show_load_popup)
+
+    def save(self, *args):
+        file_handler = filehandler.FileHandler()
+        save_unit_list = self.make_serializable()
+        file_handler.show_save_popup(save_unit_list)
+
+    def make_serializable(self):
+        serializable_list = []
+        serializable_list.append(self.name_input.text)
+        serializable_list.append(self.class_input.text)
+        serializable_list.append(self.hp_input.text)
+        return serializable_list
+
