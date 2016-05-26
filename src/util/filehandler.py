@@ -82,34 +82,35 @@ class FileHandler(BoxLayout):
         popup.open()
 
     def load(self, path, filename, popup):
-            if platform.system() == "Windows":
-                try:
-                    file_name = filename[0]
-                    if file_name[-4:] != '.ddh':
-                        print "Invalid file type."
-                    else:
-                        file_index = [m.start() for m in re.finditer(r'\\', file_name)]
-                        with open(os.path.join(path, file_name[file_index[-1]+1:]),
-                                'rb')as in_file:
-                            print self.deserialize(in_file)
-                        popup.dismiss()
-                except:
-                    print "No file selected."
-            else:
-                try:
-                    file_name = filename[0]
-                    if file_name[-4:] != '.ddh':
-                        print "Invalid file type."
-                    else:
-                        file_index = [m.start() for m in re.finditer('/', file_name)]
-                        with open(os.path.join(path, file_name[file_index[-1]+1:]),
-                                'rb')as in_file:
-                            test_object = self.deserialize(in_file)
-                        print "%s %d %s" % (test_object[0].name, test_object[0].version, test_object[0].is_dank)
-                        test_object[0].test_print("Vegard")
-                        popup.dismiss()
-                except:
-                    print "No file selected."
+        if platform.system() == "Windows":
+            try:
+                file_name = filename[0]
+                if file_name[-4:] != '.ddh':
+                    print "Invalid file type."
+                else:
+                    file_index = [m.start() for m in re.finditer(r'\\', file_name)]
+                    with open(os.path.join(path, file_name[file_index[-1]+1:]),
+                              'rb')as in_file:
+                        print self.deserialize(in_file)
+                    popup.dismiss()
+            except:
+                print "No file selected."
+        else:
+            try:
+                file_name = filename[0]
+                if file_name[-4:] != '.ddh':
+                    print "Invalid file type."
+                else:
+                    file_index = [m.start() for m in re.finditer('/', file_name)]
+                    with open(os.path.join(path, file_name[file_index[-1]+1:]),
+                              'rb')as in_file:
+                        test_object = self.deserialize(in_file)
+                    print "%s %d %s" % (test_object[0].name, test_object[0].version,
+                                        test_object[0].is_dank)
+                    test_object[0].test_print("This is a test method")
+                    popup.dismiss()
+            except:
+                print "No file selected."
 
     def save(self, path, out_file, popup):
         if out_file == '':
