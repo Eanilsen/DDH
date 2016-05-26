@@ -114,8 +114,8 @@ class CharacterScreen(Screen):
 
     def make_serializable(self):
         serializable_list = []
-        serializable_list.append(self.hp_input.text)
         serializable_list.append(self.name_input.text)
         serializable_list.append(self.class_input.text)
+        serializable_list.append(self.hp_input.text)
         return serializable_list
 

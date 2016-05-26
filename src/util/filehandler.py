@@ -27,20 +27,6 @@ class TestFile(object):
 
 
 class FileHandler(BoxLayout):
-    def __init__(self, **kwargs):
-        # super(FileHandler, self).__init__(**kwargs)
-
-        # load_btn = Button(text='Load')
-        # load_btn.bind(on_release=self.show_load_popup)
-        # self.add_widget(load_btn)
-
-        # save_btn = Button(text='Save')
-        # save_btn.bind(on_release=self.show_save_popup)
-        # self.add_widget(save_btn)
-
-        self.test_file = TestFile()
-        self.test = []
-
     def show_load_popup(self, *args):
         load_btn = Button(text='Load', size_hint=(.08, .05))
         file_chooser = FileChooserIconView(path="../saves")
@@ -121,10 +107,3 @@ class FileHandler(BoxLayout):
     def serialize(self, path, out_file, save_unit):
         with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
             pickle.dump(save_unit, of)
-
-# class MyApp(App):
-#     def build(self):
-#         return FileHandler()
-
-# if __name__ == '__main__':
-#     MyApp().run()
