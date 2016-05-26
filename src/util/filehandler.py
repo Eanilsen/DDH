@@ -28,23 +28,22 @@ class TestFile(object):
 
 class FileHandler(BoxLayout):
     def __init__(self, **kwargs):
-        super(FileHandler, self).__init__(**kwargs)
+        # super(FileHandler, self).__init__(**kwargs)
 
-        load_btn = Button(text='Load')
-        load_btn.bind(on_release=self.show_load_popup)
-        self.add_widget(load_btn)
+        # load_btn = Button(text='Load')
+        # load_btn.bind(on_release=self.show_load_popup)
+        # self.add_widget(load_btn)
 
-        save_btn = Button(text='Save')
-        save_btn.bind(on_release=self.show_save_popup)
-        self.add_widget(save_btn)
+        # save_btn = Button(text='Save')
+        # save_btn.bind(on_release=self.show_save_popup)
+        # self.add_widget(save_btn)
 
         self.test_file = TestFile()
         self.test = []
 
-
     def show_load_popup(self, *args):
         load_btn = Button(text='Load', size_hint=(.08, .05))
-        file_chooser = FileChooserIconView(path="../../saves")
+        file_chooser = FileChooserIconView(path="../saves")
 
         content = FloatLayout()
         content.clear_widgets()
@@ -58,13 +57,13 @@ class FileHandler(BoxLayout):
         load_btn.bind(on_release=load_callback)
         popup.open()
 
-    def show_save_popup(self, *args):
+    def show_save_popup(self, save_unit, *args):
         text_input = TextInput(
             size_hint=(.20, .05),
             pos_hint={'center_x': .5, 'bottom_y': .05},
             multiline=False)
         save_btn = Button(text='Save', size_hint=(.08, .05))
-        file_chooser = FileChooserIconView(path="../../saves")
+        file_chooser = FileChooserIconView(path="../saves")
 
         content = FloatLayout()
         content.clear_widgets()
@@ -75,7 +74,7 @@ class FileHandler(BoxLayout):
         popup = Popup(title="Save a file", content=content)
 
         serialize_callback = lambda save: self.save(
-            file_chooser.path, text_input.text, popup)
+            file_chooser.path, text_input.text, save_unit, popup)
         text_input.bind(on_text_validate=serialize_callback)
         save_btn.bind(on_release=serialize_callback)
 
@@ -104,32 +103,28 @@ class FileHandler(BoxLayout):
                     file_index = [m.start() for m in re.finditer('/', file_name)]
                     with open(os.path.join(path, file_name[file_index[-1]+1:]),
                               'rb')as in_file:
-                        test_object = self.deserialize(in_file)
-                    print "%s %d %s" % (test_object[0].name, test_object[0].version,
-                                        test_object[0].is_dank)
-                    test_object[0].test_print("This is a test method")
+                        print self.deserialize(in_file)
                     popup.dismiss()
             except:
                 print "No file selected."
 
-    def save(self, path, out_file, popup):
+    def save(self, path, out_file, save_unit, popup):
         if out_file == '':
             print "Text field can not be empty."
         else:
-            self.serialize(path, out_file)
+            self.serialize(path, out_file, save_unit)
             popup.dismiss()
 
-    def deserialize(self, file_string):
-        return pickle.load(file_string)
+    def deserialize(self, in_file):
+        return pickle.load(in_file)
 
-    def serialize(self, path, out_file):
-        self.test.append(self.test_file)
+    def serialize(self, path, out_file, save_unit):
         with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
-            pickle.dump(self.test, of)
+            pickle.dump(save_unit, of)
 
-class MyApp(App):
-    def build(self):
-        return FileHandler()
+# class MyApp(App):
+#     def build(self):
+#         return FileHandler()
 
-if __name__ == '__main__':
-    MyApp().run()
+# if __name__ == '__main__':
+#     MyApp().run()
