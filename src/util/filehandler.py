@@ -74,8 +74,9 @@ class FileHandler(BoxLayout):
 
         popup = Popup(title="Save a file", content=content)
 
-        serialize_callback = lambda save: self.serialize(
+        serialize_callback = lambda save: self.save(
             file_chooser.path, text_input.text, popup)
+        text_input.bind(on_text_validate=serialize_callback)
         save_btn.bind(on_release=serialize_callback)
 
         popup.open()
@@ -83,10 +84,10 @@ class FileHandler(BoxLayout):
     def load(self, path, filename, popup):
             if platform.system() == "Windows":
                 try:
-                    if '.ddh' not in filename[0]:
+                    file_name = filename[0]
+                    if file_name[-4:] != '.ddh':
                         print "Invalid file type."
                     else:
-                        file_name = filename[0]
                         file_index = [m.start() for m in re.finditer(r'\\', file_name)]
                         with open(os.path.join(path, file_name[file_index[-1]+1:]),
                                 'rb')as in_file:
@@ -96,10 +97,10 @@ class FileHandler(BoxLayout):
                     print "No file selected."
             else:
                 try:
-                    if '.ddh' not in filename[0]:
+                    file_name = filename[0]
+                    if file_name[-4:] != '.ddh':
                         print "Invalid file type."
                     else:
-                        file_name = filename[0]
                         file_index = [m.start() for m in re.finditer('/', file_name)]
                         with open(os.path.join(path, file_name[file_index[-1]+1:]),
                                 'rb')as in_file:
@@ -110,14 +111,20 @@ class FileHandler(BoxLayout):
                 except:
                     print "No file selected."
 
+    def save(self, path, out_file, popup):
+        if out_file == '':
+            print "Text field can not be empty."
+        else:
+            self.serialize(path, out_file)
+            popup.dismiss()
+
     def deserialize(self, file_string):
         return pickle.load(file_string)
 
-    def serialize(self, path, out_file, popup):
+    def serialize(self, path, out_file):
         self.test.append(self.test_file)
         with open(os.path.join(path, out_file + '.ddh'), 'wb') as of:
             pickle.dump(self.test, of)
-        popup.dismiss()
 
 class MyApp(App):
     def build(self):
