@@ -28,8 +28,13 @@ class TestFile(object):
 
 class FileHandler(BoxLayout):
     def show_load_popup(self, *args):
+        if os.path.exists(os.path.abspath('saves/')):
+            file_chooser = FileChooserIconView(path="saves")
+        elif os.path.exists(os.path.abspath('../saves')):
+            file_chooser = FileChooserIconView(path="../saves")
+        else:
+            file_chooser = FileChooserIconView(path=".")
         load_btn = Button(text='Load', size_hint=(.08, .05))
-        file_chooser = FileChooserIconView(path="../saves")
 
         content = FloatLayout()
         content.clear_widgets()
@@ -44,12 +49,17 @@ class FileHandler(BoxLayout):
         popup.open()
 
     def show_save_popup(self, save_unit, *args):
+        if os.path.exists(os.path.abspath('saves/')):
+            file_chooser = FileChooserIconView(path="saves")
+        elif os.path.exists(os.path.abspath('../saves')):
+            file_chooser = FileChooserIconView(path="../saves")
+        else:
+            file_chooser = FileChooserIconView(path=".")
         text_input = TextInput(
             size_hint=(.20, .05),
             pos_hint={'center_x': .5, 'bottom_y': .05},
             multiline=False)
         save_btn = Button(text='Save', size_hint=(.08, .05))
-        file_chooser = FileChooserIconView(path="../saves")
 
         content = FloatLayout()
         content.clear_widgets()
