@@ -6,7 +6,7 @@ from ui.join_screen import JoinScreen
 def test_homescreen():
     hs = HomeScreen()
     isinstance(hs, Screen)
-    assert_equal(hs.label.text, 'I was built in python!')
+    assert_equal(hs.label.text, 'Welcome to DDH')
     assert_equal(hs.join_button.text, 'Join')
     assert_equal(hs.host_button.text, 'Host')
     assert_equal(hs.character_button.text, 'Characters')
