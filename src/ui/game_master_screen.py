@@ -8,7 +8,6 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.dropdown import DropDown  # Used for dropdown
 from random import random, shuffle
 
 class GameMasterScreen(Screen):
@@ -39,7 +38,7 @@ class CharacterInformation(BoxLayout):
         self.orientation = 'horizontal'
         self.size_hint = (1, .12)
 
-        character = Image(source="images/char.jpg")
+        character = Image(source="images/portrait1.gif")
         player_name = Label(text='Character Name')
         player_health = Label(text='1337/2000')
         player_mana = Label(text='105/200')
@@ -118,8 +117,8 @@ class PlayersPanel(BoxLayout):
         # Sample players
         player_names = ["Prof", "Django", "ZeltaVoid", "xXxSlayerxXx", "Init69", "Mao"]
         player_roles = ["Paladin", "Magus", "Druid", "Alchemist", "Summoner", "Fighter", "Elitist"]
-        sample_portrait = ["images/illidan.jpg", "images/portrait1.jpg", "images/fighter.jpg", "images/pink.jpg",
-                           "images/archer.jpg", "images/char.jpg", "images/archer.jpg"]
+        sample_portrait = ["images/portrait1.gif", "images/portrait2.gif", "images/portrait3.gif",
+                           "images/portrait7.gif", "images/portrait4.gif", "images/portrait5.gif", "images/portrait6.gif"]
         for i in range(0, player_amount):
             current_player = player_names.pop()
             current_role = player_roles.pop()

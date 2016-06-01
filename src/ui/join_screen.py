@@ -151,11 +151,11 @@ class GameOverView(BoxLayout):
 #pylint: disable=too-many-instance-attributes
 class JoinScreen(Screen):
     """
-    Implemntation of the join screen
+    Implementation of the join screen
     """
     def __init__(self, **kwargs):
         super(JoinScreen, self).__init__(**kwargs)
-
+        self.confirm_button = None
         self.background = Image(
             source='images/background.jpg',
             allow_stretch=True,

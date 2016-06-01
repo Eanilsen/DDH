@@ -15,7 +15,7 @@ class HomeScreen(Screen):
         self.add_widget(self.label)
 
         self.buttons = BoxLayout(size_hint=(.25, .15), pos_hint={'center_x' : .5, 'center_y' : .5})
-        self.buttons.spacing = 5;
+        self.buttons.spacing = 5
         self.buttons.orientation = 'vertical'
 
         self.join_button = Button(text='Join')
