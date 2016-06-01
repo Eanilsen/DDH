@@ -1,15 +1,15 @@
-# Welcome to RPG Helper
+# Welcome to RPGHelper
 
 Tabletop RPG is fun. An exciting mix of imagination, storytelling and teamwork 
 make up the best of what fantasy has to offer. However, it can be hard for 
 newcomers to fully access or grasp all of the concepts behind these games. 
 Likewise it can be hard for a GM (Game Master) to manage all the information
-or enforce all the rules that surface while playing. DDH is a software project
+or enforce all the rules that surface while playing. RPGHelper is a software project
 aimed at creating an application that can ease the difficulty for both players
 and GMs during an RPG session.
 
 ## About us
-We're five college students and RPG enthusiasts. Yup.
+We're five college students and RPG enthusiasts.
 
 ## About the software
 For this application the chosen API is [kivy](https://kivy.org/#home).
@@ -38,15 +38,11 @@ To run the project as it is right now you need the following installed:
 * A python interpreter (2.7)
 * The [kivy library](https://kivy.org/docs/installation/installation.html)
 
-Then run the file 'ui_controller.py' to start the software. If you are
+Then run the file 'main.py' to start the software. If you are
 unfamiliar with running python scripts then read [this](http://pythoncentral.io/execute-python-script-file-shell/)
 article or check out the [python documentation](https://docs.python.org/3/)
 
-NOTE: We are still in very early developement stages, hence the lack of
-almost everything.
+## License
+Copyright 2016 Pythonslangen. 
 
-## Licence
-As of right now we have no liscencing. None, squat. It is our intention however
-that this project remains open source and free to use, edit and distribute. In
-the future we will look into MIT, GPL or whatever we feel is the most 
-approproate liscence.  
+The software "RPGHelper" is released under the MIT Licence.
