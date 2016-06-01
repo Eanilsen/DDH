@@ -26,28 +26,26 @@ class GameMasterScreen(Screen):
         # Add the player panel to the bottom layout
         self.bottom_container.add_widget(PlayersPanel(6))
         # This is the top container which holds character_information as opposite to the bottom container
-        self.outer_layout.add_widget(CharacterInformation())
+        self.outer_layout.add_widget(CharacterInformation("images/portrait1.gif", "Character Name", "1337/2000", "105/200"))
         # modular_panel holds the tabbed_panel and all_players containers
         self.outer_layout.add_widget(self.bottom_container)
 
-
 class CharacterInformation(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self, portrait, player_name, player_health, player_mana, **kwargs):
         super(CharacterInformation, self).__init__(**kwargs)
 
         self.orientation = 'horizontal'
         self.size_hint = (1, .12)
-
-        character = Image(source="images/portrait1.gif")
-        player_name = Label(text='Character Name')
-        player_health = Label(text='1337/2000')
-        player_mana = Label(text='105/200')
+        self.character = Image(source=portrait)
+        self.player_name = Label(text=player_name)
+        self.player_health = Label(text=player_health)
+        self.player_mana = Label(text=player_mana)
         text_box = BoxLayout(orientation='vertical')
-        text_box.add_widget(player_name)
-        text_box.add_widget(player_health)
-        text_box.add_widget(player_mana)
+        text_box.add_widget(self.player_name)
+        text_box.add_widget(self.player_health)
+        text_box.add_widget(self.player_mana)
 
-        self.add_widget(character)
+        self.add_widget(self.character)
         self.add_widget(text_box)
 
 '''
