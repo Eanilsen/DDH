@@ -28,25 +28,25 @@ class CharacterScreen(Screen):
         self.layout.add_widget(self.buttons)
 
         self.new_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='New',
             size_hint=(.30, .15),
             font_size=24)
 
         self.save_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Save',
             size_hint=(.30, .15),
             font_size=24)
 
         self.load_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Load',
             size_hint=(.30, .15),
             font_size=24)
 
         self.join_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Join',
             size_hint=(.30, .15),
             font_size=24)
@@ -63,17 +63,17 @@ class CharacterScreen(Screen):
             size_hint=(.5, .22))
 
         self.name_label = Label(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Name',
             font_size=35)
 
         self.class_label = Label(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Class',
             font_size=35)
 
         self.hp_label = Label(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='HP',
             font_size=35)
 
@@ -108,7 +108,7 @@ class CharacterScreen(Screen):
         self.layout.add_widget(self.txt_inputs)
 
         self.back_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Back',
             font_size=24,
             size_hint=(.10, .05),

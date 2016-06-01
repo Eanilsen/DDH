@@ -26,19 +26,19 @@ class HomeScreen(Screen):
         self.buttons.orientation = 'vertical'
 
         self.join_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             font_size=24,
             text='Join')
         self.buttons.add_widget(self.join_button)
 
         self.host_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             font_size=24,
             text='Host')
         self.buttons.add_widget(self.host_button)
 
         self.character_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             font_size=24,
             text='Characters')
         self.buttons.add_widget(self.character_button)
@@ -46,7 +46,7 @@ class HomeScreen(Screen):
         self.add_widget(self.buttons)
 
         self.quit_button = Button(
-            font_name='fonts/enchanted land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             text='Quit', 
             font_size=24,
             size_hint=(.10, .05), 
