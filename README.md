@@ -1,10 +1,10 @@
-# Welcome to RPGHelper
+# Welcome to RPG Helper
 
 Tabletop RPG is fun. An exciting mix of imagination, storytelling and teamwork 
 make up the best of what fantasy has to offer. However, it can be hard for 
 newcomers to fully access or grasp all of the concepts behind these games. 
 Likewise it can be hard for a GM (Game Master) to manage all the information
-or enforce all the rules that surface while playing. RPGHelper is a software project
+or enforce all the rules that surface while playing. DDH is a software project
 aimed at creating an application that can ease the difficulty for both players
 and GMs during an RPG session.
 
