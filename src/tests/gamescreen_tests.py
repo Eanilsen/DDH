@@ -1,6 +1,6 @@
 from nose.tools import *
 from kivy.uix.screenmanager import Screen, ScreenManager
-from ui.game_screen import GameScreen, MagicTab
+from ui.game_player_screen import GameScreen, MagicTab
 
 def test_game_screen():
 

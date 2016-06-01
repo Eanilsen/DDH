@@ -11,9 +11,9 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.dropdown import DropDown  # Used for dropdown
 from random import random, shuffle
 
-class GameScreen(Screen):
+class GamePlayerScreen(Screen):
     def __init__(self, **kwargs):
-        super(GameScreen, self).__init__(**kwargs)
+        super(GamePlayerScreen, self).__init__(**kwargs)
         self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
         # Create an outer layout for structure
@@ -27,28 +27,27 @@ class GameScreen(Screen):
         # Add the player panel to the bottom layout
         self.bottom_container.add_widget(PlayersPanel(6))
         # This is the top container which holds character_information as opposite to the bottom container
-        self.outer_layout.add_widget(CharacterInformation())
+        self.outer_layout.add_widget(
+            CharacterInformation("images/portrait1.gif", "Character Name", "1337/2000", "105/200"))
         # modular_panel holds the tabbed_panel and all_players containers
         self.outer_layout.add_widget(self.bottom_container)
 
-
 class CharacterInformation(BoxLayout):
-    def __init__(self, **kwargs):
+    def __init__(self, portrait, player_name, player_health, player_mana, **kwargs):
         super(CharacterInformation, self).__init__(**kwargs)
 
         self.orientation = 'horizontal'
         self.size_hint = (1, .12)
-
-        character = Image(source="images/char.jpg")
-        player_name = Label(text='Character Name')
-        player_health = Label(text='1337/2000')
-        player_mana = Label(text='105/200')
+        self.character = Image(source=portrait)
+        self.player_name = Label(text=player_name)
+        self.player_health = Label(text=player_health)
+        self.player_mana = Label(text=player_mana)
         text_box = BoxLayout(orientation='vertical')
-        text_box.add_widget(player_name)
-        text_box.add_widget(player_health)
-        text_box.add_widget(player_mana)
+        text_box.add_widget(self.player_name)
+        text_box.add_widget(self.player_health)
+        text_box.add_widget(self.player_mana)
 
-        self.add_widget(character)
+        self.add_widget(self.character)
         self.add_widget(text_box)
 
 '''
@@ -118,8 +117,8 @@ class PlayersPanel(BoxLayout):
         # Sample players
         player_names = ["Prof", "Django", "ZeltaVoid", "xXxSlayerxXx", "Init69", "Mao"]
         player_roles = ["Paladin", "Magus", "Druid", "Alchemist", "Summoner", "Fighter", "Elitist"]
-        sample_portrait = ["images/illidan.jpg", "images/portrait1.jpg", "images/fighter.jpg", "images/pink.jpg",
-                           "images/archer.jpg", "images/char.jpg", "images/archer.jpg"]
+        sample_portrait = ["images/portrait1.gif", "images/portrait2.gif", "images/portrait3.gif", "images/portrait7.gif",
+                           "images/portrait4.gif", "images/portrait5.gif", "images/portrait6.gif"]
         for i in range(0, player_amount):
             current_player = player_names.pop()
             current_role = player_roles.pop()
@@ -158,54 +157,3 @@ class Player(GridLayout):
     def update_rect(self, *args):
         self.rect.pos = self.pos
         self.rect.size = self.size
-
-
-
-
-
-
-
-
-""" This is how the old .kv made the buttons drag able:
-
-            BoxLayout: # Current Players
-                orientation: 'vertical'
-                id: 'players'
-                spacing: 1
-                Scatter:
-                    do_scale: False
-                    do_rotation: False
-
-                Button:
-                    text: 'Player 1'
-                Button:
-                    text: 'Player 2'
-                Button:
-                    text: 'Player 3'
-
-                # Define the root widget
-                DragLabel:
-                    text: 'Drag me'
-                Button:
-                    text: 'Player 4'
-                    on_touch_down: print('Right: {}'.format(args[1].pos))
-                DragLabel:
-                    text: "Don't push me"
-                    drag_rect_y: modular_panel.height
-                    drag_rect_x: modular_panel.width
-
-# For changing visuals of the tabs bar
-<TabbedPanelStrip>:
-    canvas:
-        Color:
-            rgba: (0, 1, 0, 1) # green
-        Rectangle:
-            size: self.size
-            pos: self.pos
-
-<DragLabel>:
-    # Define the properties for the DragLabel
-    drag_rectangle: self.x, self.y, self.width, self.height
-    drag_timeout: 10000000
-    drag_distance: 0 # Before widget starts being dragged
-"""

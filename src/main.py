@@ -3,7 +3,8 @@ from kivy.app import App
 from ui.home_screen import HomeScreen
 from ui.join_screen import JoinScreen
 from ui.host_screen import HostScreen
-from ui.game_screen import GameScreen
+from ui.game_player_screen import GamePlayerScreen
+from ui.game_master_screen import GameMasterScreen
 from ui.character_screen import CharacterScreen
 
 sm = ScreenManager(transition=NoTransition())
@@ -20,18 +21,21 @@ class Join(JoinScreen):
     def __init__(self, **kwargs):
         super(Join, self).__init__(**kwargs)
         self.back_button.bind(on_release=switch_to_home)
+        self.join_button.bind(on_release=switch_to_game_player_screen)
 
 class Host(HostScreen):
     def __init__(self, **kwargs):
         super(Host, self).__init__(**kwargs)
         self.back_button.bind(on_release=switch_to_home)
-        self.start_game_button.bind(on_release=switch_to_game_screen)
+        self.start_game_button.bind(on_release=switch_to_game_master_screen)
 
-
-
-class Game(GameScreen):
+class GamePlayer(GamePlayerScreen):
     def __init__(self, **kwargs):
-        super(Game, self).__init__(**kwargs)
+        super(GamePlayer, self).__init__(**kwargs)
+
+class GameMaster(GameMasterScreen):
+    def __init__(self, **kwargs):
+        super(GameMaster, self).__init__(**kwargs)
 
 class Character(CharacterScreen):
     def __init__(self, **kwargs):
@@ -50,8 +54,11 @@ def switch_to_home(*args):
 def switch_to_host_screen(*args):
     sm.current = 'host'
 
-def switch_to_game_screen(*args):
-    sm.current = 'game'
+def switch_to_game_player_screen(*args):
+    sm.current = 'game_player'
+
+def switch_to_game_master_screen(*args):
+    sm.current = 'game_master'
 
 def switch_to_character_screen(*args):
     sm.current = 'character'
@@ -71,8 +78,11 @@ sm.add_widget(join)
 host = Host(name='host')
 sm.add_widget(host)
 
-game = Game(name='game')
-sm.add_widget(game)
+game_player = GamePlayerScreen(name='game_player')
+sm.add_widget(game_player)
+
+game_master = GameMasterScreen(name='game_master')
+sm.add_widget(game_master)
 
 character = Character(name='character')
 sm.add_widget(character)
