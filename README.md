@@ -1,15 +1,15 @@
-# Welcome to RPG Helper
+# Welcome to RPGHelper
 
 Tabletop RPG is fun. An exciting mix of imagination, storytelling and teamwork 
 make up the best of what fantasy has to offer. However, it can be hard for 
 newcomers to fully access or grasp all of the concepts behind these games. 
 Likewise it can be hard for a GM (Game Master) to manage all the information
-or enforce all the rules that surface while playing. DDH is a software project
+or enforce all the rules that surface while playing. RPGHelper is a software project
 aimed at creating an application that can ease the difficulty for both players
 and GMs during an RPG session.
 
 ## About us
-We're five college students and RPG enthusiasts. Yup.
+We're five college students and RPG enthusiasts.
 
 ## About the software
 For this application the chosen API is [kivy](https://kivy.org/#home).
@@ -38,15 +38,17 @@ To run the project as it is right now you need the following installed:
 * A python interpreter (2.7)
 * The [kivy library](https://kivy.org/docs/installation/installation.html)
 
-Then run the file 'ui_controller.py' to start the software. If you are
+Then run the file 'main.py' to start the software. If you are
 unfamiliar with running python scripts then read [this](http://pythoncentral.io/execute-python-script-file-shell/)
 article or check out the [python documentation](https://docs.python.org/3/)
 
-NOTE: We are still in very early developement stages, hence the lack of
-almost everything.
-
 ## Licence
-As of right now we have no liscencing. None, squat. It is our intention however
-that this project remains open source and free to use, edit and distribute. In
-the future we will look into MIT, GPL or whatever we feel is the most 
-approproate liscence.  
+The Software "RPGHelper" is licenced under the "MIT Licence" 
+Copyright; 2016, Pythonslangen. 
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
