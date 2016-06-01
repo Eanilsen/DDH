@@ -24,24 +24,32 @@ class CharacterScreen(Screen):
             orientation='vertical',
             spacing=15, 
             pos_hint={'center_x': .25, 'center_y': .5},
-            size_hint=(.5, .5))
+            size_hint=(.5, .30))
         self.layout.add_widget(self.buttons)
 
         self.new_button = Button(
+            font_name='fonts/enchanted land.otf',
             text='New',
-            size_hint=(.30, .15))
+            size_hint=(.30, .15),
+            font_size=24)
 
         self.save_button = Button(
+            font_name='fonts/enchanted land.otf',
             text='Save',
-            size_hint=(.30, .15))
+            size_hint=(.30, .15),
+            font_size=24)
 
         self.load_button = Button(
+            font_name='fonts/enchanted land.otf',
             text='Load',
-            size_hint=(.30, .15))
+            size_hint=(.30, .15),
+            font_size=24)
 
         self.join_button = Button(
+            font_name='fonts/enchanted land.otf',
             text='Join',
-            size_hint=(.30, .15))
+            size_hint=(.30, .15),
+            font_size=24)
 
         self.buttons.add_widget(self.new_button)
         self.buttons.add_widget(self.save_button)
@@ -55,16 +63,19 @@ class CharacterScreen(Screen):
             size_hint=(.5, .22))
 
         self.name_label = Label(
+            font_name='fonts/enchanted land.otf',
             text='Name',
-            font_size=24)
+            font_size=35)
 
         self.class_label = Label(
+            font_name='fonts/enchanted land.otf',
             text='Class',
-            font_size=24)
+            font_size=35)
 
         self.hp_label = Label(
+            font_name='fonts/enchanted land.otf',
             text='HP',
-            font_size=24)
+            font_size=35)
 
         self.labels.add_widget(self.name_label)
         self.labels.add_widget(self.class_label)
@@ -97,7 +108,9 @@ class CharacterScreen(Screen):
         self.layout.add_widget(self.txt_inputs)
 
         self.back_button = Button(
+            font_name='fonts/enchanted land.otf',
             text='Back',
+            font_size=24,
             size_hint=(.10, .05),
             pos_hint={'center_x': .95, 'bottom_y': .025})
         self.layout.add_widget(self.back_button)
