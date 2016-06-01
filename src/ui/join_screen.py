@@ -226,7 +226,7 @@ class JoinScreen(Screen):
 
         self.join_button = Button(
         text='Join Game',
-        font_name='fonts/Enchanted Land.otf',
+        font_name='fonts/Enchanted_Land.otf',
         font_size=24)
         self.join_button.bind(on_press=GameBox.show_confirmation)
         self.buttons.add_widget(self.join_button)
@@ -234,12 +234,12 @@ class JoinScreen(Screen):
         self.filter_button = Button(
         text='Filter',
         font_size=24,
-        font_name='fonts/Enchanted Land.otf')
+        font_name='fonts/Enchanted_Land.otf')
         self.filter_button.bind(on_press=GameBox.show_filter)
         self.buttons.add_widget(self.filter_button)
 
         self.back_button = Button(
-            font_name='fonts/Enchanted Land.otf',
+            font_name='fonts/Enchanted_Land.otf',
             font_size=24,
             text='Back', 
             size_hint=(.10, .05),
