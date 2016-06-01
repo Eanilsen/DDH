@@ -46,7 +46,7 @@ class GameBox(BoxLayout):
                     halign='center')
 
         popup = Popup(
-            title='Filter, you dirty slut',
+            title='Filter your games',
             size_hint=(.25, .25), 
             content=content)
 
