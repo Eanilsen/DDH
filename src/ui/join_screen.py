@@ -38,6 +38,31 @@ class GameBox(BoxLayout):
                 game.canvas.remove(game.rectangle)
                 game.highlighted = False
 
+    def show_filter(self):
+        content = Label(
+                    title='Title',
+                    text='Filter by host name or players',
+                    text_size=self.size,
+                    halign='center')
+
+        popup = Popup(
+            title='Filter, you dirty slut',
+            size_hint=(.25, .25), 
+            content=content)
+
+        name_button = Button(text='Name')
+        content.add_widget(name_button)
+
+        desc_button = Button(text='Description')
+        content.add_widget(desc_button)
+
+        players_button = Button(text='Players')
+        content.add_widget(players_button)
+
+
+        popup.open()
+        return
+
     def show_confirmation(self):
         """
         Bring up a confirmation window so that users don't accidentally
@@ -58,10 +83,15 @@ class GameBox(BoxLayout):
             #user did not select any game to join
             if conf_name == '':
                 content = Label(
-                    text='You must select a game before joining',
+                    text='You must select a game before joining!',
                     text_size=self.size,
                     halign='center')
-                popup = Popup(size_hint=(.25, .25), content=content)
+
+                popup = Popup(
+                    title='Warning!',
+                    size_hint=(.25, .25), 
+                    content=content,
+                    halign='center')
                 popup.open()
                 return
 
@@ -127,23 +157,23 @@ class GameOverView(BoxLayout):
         self.add_widget(self.titles)
 
         self.names = Label(
-            text='[i][b]Game Names[/b][/i]',
-            markup=True,
-            font_size='20sp')
-
-        self.num_players = Label(
-            text='[i][b]Number of Players[/b][/i]',
-            markup=True,
+            text='Game Names',
+            font_name='fonts/vinque.ttf',
             font_size='20sp')
 
         self.descs = Label(
-            text='[i][b]Description[/b][/i]',
-            markup=True,
+            text='Description',
+            font_name='fonts/vinque.ttf',
+            font_size='20sp')
+
+        self.num_players = Label(
+            text='Number of Players',
+            font_name='fonts/vinque.ttf',
             font_size='20sp')
 
         self.titles.add_widget(self.names)
-        self.titles.add_widget(self.num_players)
         self.titles.add_widget(self.descs)
+        self.titles.add_widget(self.num_players)
         for game in games:
             self.add_widget(game)
             self.games_list.append(game)
@@ -168,18 +198,18 @@ class JoinScreen(Screen):
         #we have a server-client prototype running
 
         self.title = Label(
-            text='[i]Select a game to join[i]',
-            markup=True,
+            text='Select a game to join',
+            font_name='fonts/BLKCHCRY.TTF',
             font_size='40sp',
             pos_hint={'center_x': .5, 'center_y': .85})
         self.add_widget(self.title)
 
-        self.gbox = GameBox('Name1', '0', 'Desc')
-        self.gbox1 = GameBox('Name2', '1', 'Desc')
-        self.gbox2 = GameBox('Name3', '2', 'Desc')
-        self.gbox3 = GameBox('Name', '3', 'Desc')
-        self.gbox4 = GameBox('Name', '4', 'Desc')
-        self.gbox5 = GameBox('Name', '5', 'Desc')
+        self.gbox = GameBox('Name1', 'Desc', '0')
+        self.gbox1 = GameBox('Name2', 'Desc', '1')
+        self.gbox2 = GameBox('Name3', 'Desc', '2')
+        self.gbox3 = GameBox('Name', 'Desc', '3')
+        self.gbox4 = GameBox('Name', 'Desc', '4')
+        self.gbox5 = GameBox('Name', 'Desc', '5')
 
         self.games = GameOverView(
             self.gbox, self.gbox1, self.gbox2, self.gbox3, self.gbox4,
@@ -194,14 +224,24 @@ class JoinScreen(Screen):
             pos_hint={'center_x': .5, 'center_y': .2})
         self.add_widget(self.buttons)
 
-        self.join_button = Button(text='Join Game')
+        self.join_button = Button(
+        text='Join Game',
+        font_name='fonts/Enchanted Land.otf',
+        font_size=24)
         self.join_button.bind(on_press=GameBox.show_confirmation)
         self.buttons.add_widget(self.join_button)
 
-        self.filter_button = Button(text='Refresh')
+        self.filter_button = Button(
+        text='Filter',
+        font_size=24,
+        font_name='fonts/Enchanted Land.otf')
+        self.filter_button.bind(on_press=GameBox.show_filter)
         self.buttons.add_widget(self.filter_button)
 
         self.back_button = Button(
-            text='Back', size_hint=(.10, .05),
+            font_name='fonts/Enchanted Land.otf',
+            font_size=24,
+            text='Back', 
+            size_hint=(.10, .05),
             pos_hint={'center_x' : .95, 'bottom_y' : .025})
         self.add_widget(self.back_button)

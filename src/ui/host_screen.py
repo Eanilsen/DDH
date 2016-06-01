@@ -17,6 +17,7 @@ class HostScreen(Screen):
 
         # Back Button
         self.back_button = Button(text='Back',
+                                  font_name='fonts/vinque.ttf',
                                   size_hint=(.10, .05),
                                   pos_hint={'center_x': .95, 'bottom_y': .025})
         self.add_widget(self.back_button)
@@ -26,7 +27,8 @@ class HostScreen(Screen):
         self.add_widget(self.canvas_layout)
 
         # A label displaying the page name
-        self.label_host_game = Label(text="Host a Game!",
+        self.label_host_game = Label(text="Host ye olde Game!",
+                                     font_name='fonts/BLKCHCRY.TTF',
                                      font_size=40,
                                      size_hint=(.25, .10),
                                      pos_hint={'center_x': .5, 'center_y': .8})
@@ -64,6 +66,8 @@ class HostScreen(Screen):
 
         # The button to start a game
         self.start_game_button = Button(text='Start Game',
+                                        font_name='fonts/vinque.ttf',
+                                        font_size=24,
                                         size_hint=(.4, .05),
                                         pos_hint={'center_x': .5, 'center_y': .5})
         self.canvas_layout.add_widget(self.start_game_button)
