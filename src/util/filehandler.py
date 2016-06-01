@@ -34,18 +34,28 @@ class FileHandler(BoxLayout):
             file_chooser = FileChooserIconView(path="../saves")
         else:
             file_chooser = FileChooserIconView(path=".")
-        load_btn = Button(text='Load', size_hint=(.08, .05))
+        load_btn = Button(font_name='fonts/Enchanted_Land.otf',
+                          font_size=24,
+                          text='Load',
+                          size_hint=(.08, .05))
+        back_btn = Button(font_name='fonts/Enchanted_Land.otf',
+                          font_size=24,
+                          text='Back',
+                          size_hint=(.08, .05),
+                          pos_hint={'center_x': .95, 'bottom_y': .05})
 
         content = FloatLayout()
         content.clear_widgets()
         content.add_widget(file_chooser)
         content.add_widget(load_btn)
+        content.add_widget(back_btn)
 
         popup = Popup(title="Load a file", content=content)
         load_callback = lambda load: self.load(
             file_chooser.path,
             file_chooser.selection, popup)
         load_btn.bind(on_release=load_callback)
+        back_btn.bind(on_release=popup.dismiss)
         popup.open()
 
     def show_save_popup(self, save_unit, *args):
@@ -59,13 +69,22 @@ class FileHandler(BoxLayout):
             size_hint=(.20, .05),
             pos_hint={'center_x': .5, 'bottom_y': .05},
             multiline=False)
-        save_btn = Button(text='Save', size_hint=(.08, .05))
+        save_btn = Button(font_name='fonts/Enchanted_Land.otf',
+                          font_size=24,
+                          text='Save',
+                          size_hint=(.08, .05))
+        back_btn = Button(font_name='fonts/Enchanted_Land.otf',
+                          font_size=24,
+                          text='Back',
+                          size_hint=(.08, .05),
+                          pos_hint={'center_x': .95, 'bottom_y': .05})
 
         content = FloatLayout()
         content.clear_widgets()
         content.add_widget(file_chooser)
         content.add_widget(save_btn)
         content.add_widget(text_input)
+        content.add_widget(back_btn)
 
         popup = Popup(title="Save a file", content=content)
 
@@ -73,6 +92,7 @@ class FileHandler(BoxLayout):
             file_chooser.path, text_input.text, save_unit, popup)
         text_input.bind(on_text_validate=serialize_callback)
         save_btn.bind(on_release=serialize_callback)
+        back_btn.bind(on_release=popup.dismiss)
 
         popup.open()
 
