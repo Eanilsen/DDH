@@ -14,7 +14,7 @@ from random import random, shuffle
 class GamePlayerScreen(Screen):
     def __init__(self, **kwargs):
         super(GamePlayerScreen, self).__init__(**kwargs)
-        self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
+        self.background = Image(source='src/images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
         # Create an outer layout for structure
         self.outer_layout = BoxLayout(orientation='vertical')
@@ -28,7 +28,7 @@ class GamePlayerScreen(Screen):
         self.bottom_container.add_widget(PlayersPanel(6))
         # This is the top container which holds character_information as opposite to the bottom container
         self.outer_layout.add_widget(
-            CharacterInformation("images/portrait1.gif", "Character Name", "1337/2000", "105/200"))
+            CharacterInformation("src/images/portrait1.gif", "Character Name", "1337/2000", "105/200"))
         # modular_panel holds the tabbed_panel and all_players containers
         self.outer_layout.add_widget(self.bottom_container)
 
@@ -117,8 +117,8 @@ class PlayersPanel(BoxLayout):
         # Sample players
         player_names = ["Prof", "Django", "ZeltaVoid", "xXxSlayerxXx", "Init69", "Mao"]
         player_roles = ["Paladin", "Magus", "Druid", "Alchemist", "Summoner", "Fighter", "Elitist"]
-        sample_portrait = ["images/portrait1.gif", "images/portrait2.gif", "images/portrait3.gif", "images/portrait7.gif",
-                           "images/portrait4.gif", "images/portrait5.gif", "images/portrait6.gif"]
+        sample_portrait = ["src/images/portrait1.gif", "src/images/portrait2.gif", "src/images/portrait3.gif", "src/images/portrait7.gif",
+                           "src/images/portrait4.gif", "src/images/portrait5.gif", "src/images/portrait6.gif"]
         for i in range(0, player_amount):
             current_player = player_names.pop()
             current_role = player_roles.pop()
@@ -137,7 +137,7 @@ class Player(GridLayout):
         color = (random(), 1, 1, .5)
         with self.canvas:
             Color(*color, mode='hsv')  # Black with 50 Opacity (RBGA)
-            self.rect = Rectangle(source='images/texture.jpg',
+            self.rect = Rectangle(source='src/images/texture.jpg',
                                   pos=self.center,
                                   size=(self.width, self.height))
             print self.rect.size
