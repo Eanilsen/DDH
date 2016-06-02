@@ -110,8 +110,9 @@ class GameBox(BoxLayout):
             size_hint=(.25, .25),
             content=content)
 
-        confirm_button = Button(text='Confirm')
-        content.add_widget(confirm_button)
+        # confirm_button created outside of init
+        self.confirm_button = Button(text="Confirm")
+        content.add_widget(self.confirm_button)
 
         cancel_button = Button(text='Cancel')
         cancel_button.bind(on_press=popup.dismiss)
@@ -185,9 +186,8 @@ class JoinScreen(Screen):
     """
     def __init__(self, **kwargs):
         super(JoinScreen, self).__init__(**kwargs)
-        self.confirm_button = None
         self.background = Image(
-            source='images/background.jpg',
+            source='src/images/background.jpg',
             allow_stretch=True,
             keep_ratio=False)
         self.add_widget(self.background)

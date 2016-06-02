@@ -19,6 +19,9 @@ class GameMasterScreen(Screen):
     bottom_container = BoxLayout(orientation='horizontal',
                                  pos_hint={'center_x': .5, 'top_y': 0},
                                  spacing=50)  # Spacing between tabPanel and players
+    back_button = Button(text="Back",
+                         pos_hint={"right_x": .5, "top_y": .5},
+                         size_hint=(.08, .03))
 
     def __init__(self, **kwargs):
         super(GameMasterScreen, self).__init__(**kwargs)
@@ -30,6 +33,8 @@ class GameMasterScreen(Screen):
         self.outer_layout.add_widget(self.top_container)
         self.outer_layout.add_widget(self.bottom_container)
         self.add_widget(self.outer_layout)
+
+        self.add_widget(self.back_button)
 
     def test(self, player):
         self.top_container.add_widget(player)
@@ -89,6 +94,7 @@ class TabbedActivityContainer(TabbedPanel):
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
 
+
 '''
     This is information about the tab that holds magic
 '''
@@ -107,6 +113,9 @@ class MagicTab(TabbedPanelItem):
             tab_magic_ui.add_widget(Button(text=spell_string,
                                            size_hint=(.2, .1)))  # Width of the buttons
         self.add_widget(tab_magic_ui)
+
+
+
 
 '''
     PlayersPanel use the Player class to add as many players as there are names in the array

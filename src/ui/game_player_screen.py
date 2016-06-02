@@ -10,6 +10,8 @@ from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.dropdown import DropDown  # Used for dropdown
 from random import random, shuffle
+from src.util.die_bag import die
+from kivy.uix.textinput import TextInput
 
 class GamePlayerScreen(Screen):
     def __init__(self, **kwargs):
@@ -82,6 +84,31 @@ class TabbedActivityContainer(TabbedPanel):
         self.add_widget(MagicTab())  # TODO Do this with the other tabs as well!
         self.add_widget(self.tab2)
         self.add_widget(self.tab3)
+        self.add_widget(DiceTab())
+
+class DiceTab(TabbedPanelItem):
+    def __init__(self, **kwargs):
+        super(DiceTab, self).__init__(**kwargs)
+        self.text = 'Dice'
+        self.dice_ui = BoxLayout(orientation='vertical')
+
+        for i in range(0, 7):
+            self.input = TextInput(focus=False,
+                                   input_filter='int',
+                                   multiline=False)
+            self.dice_button = Button(text="d6")
+            self.dice_button.bind(on_release=self.set_label)
+
+            self.result_list = die(6, 1)
+            self.result_label = Label(text=str(self.result_list[0]))
+
+            self.dice_ui.add_widget(self.input)
+            self.dice_ui.add_widget(self.dice_button)
+            self.dice_ui.add_widget(self.result_label)
+        self.add_widget(self.dice_ui)
+
+    def set_label(self, touch):
+        self.result_label = Label(text=str(self.input.text))
 
 '''
     This is information about the tab that holds magic
