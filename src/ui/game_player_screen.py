@@ -14,7 +14,7 @@ from random import random, shuffle
 class GamePlayerScreen(Screen):
     def __init__(self, **kwargs):
         super(GamePlayerScreen, self).__init__(**kwargs)
-        self.background = Image(source='images/background.jpg', allow_stretch=True, keep_ratio=False)
+        self.background = Image(source='src/images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
         # Create an outer layout for structure
         self.outer_layout = BoxLayout(orientation='vertical')
