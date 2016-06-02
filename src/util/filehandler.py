@@ -34,11 +34,11 @@ class FileHandler(BoxLayout):
             file_chooser = FileChooserIconView(path="../saves")
         else:
             file_chooser = FileChooserIconView(path=".")
-        load_btn = Button(font_name='fonts/Enchanted_Land.otf',
+        load_btn = Button(font_name='src/fonts/Enchanted_Land.otf',
                           font_size=24,
                           text='Load',
                           size_hint=(.08, .05))
-        back_btn = Button(font_name='fonts/Enchanted_Land.otf',
+        back_btn = Button(font_name='src/fonts/Enchanted_Land.otf',
                           font_size=24,
                           text='Back',
                           size_hint=(.08, .05),
@@ -69,11 +69,11 @@ class FileHandler(BoxLayout):
             size_hint=(.20, .05),
             pos_hint={'center_x': .5, 'bottom_y': .05},
             multiline=False)
-        save_btn = Button(font_name='fonts/Enchanted_Land.otf',
+        save_btn = Button(font_name='src/fonts/Enchanted_Land.otf',
                           font_size=24,
                           text='Save',
                           size_hint=(.08, .05))
-        back_btn = Button(font_name='fonts/Enchanted_Land.otf',
+        back_btn = Button(font_name='src/fonts/Enchanted_Land.otf',
                           font_size=24,
                           text='Back',
                           size_hint=(.08, .05),

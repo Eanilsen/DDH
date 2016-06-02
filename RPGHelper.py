@@ -1,11 +1,11 @@
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.app import App
-from ui.home_screen import HomeScreen
-from ui.join_screen import JoinScreen
-from ui.host_screen import HostScreen
-from ui.game_player_screen import GamePlayerScreen
-from ui.game_master_screen import GameMasterScreen
-from ui.character_screen import CharacterScreen
+from src.ui.home_screen import HomeScreen
+from src.ui.join_screen import JoinScreen
+from src.ui.host_screen import HostScreen
+from src.ui.game_player_screen import GamePlayerScreen
+from src.ui.game_master_screen import GameMasterScreen
+from src.ui.character_screen import CharacterScreen
 
 sm = ScreenManager(transition=NoTransition())
 

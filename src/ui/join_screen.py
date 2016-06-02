@@ -158,17 +158,17 @@ class GameOverView(BoxLayout):
 
         self.names = Label(
             text='Game Names',
-            font_name='fonts/vinque.ttf',
+            font_name='src/fonts/vinque.ttf',
             font_size='20sp')
 
         self.descs = Label(
             text='Description',
-            font_name='fonts/vinque.ttf',
+            font_name='src/fonts/vinque.ttf',
             font_size='20sp')
 
         self.num_players = Label(
             text='Number of Players',
-            font_name='fonts/vinque.ttf',
+            font_name='src/fonts/vinque.ttf',
             font_size='20sp')
 
         self.titles.add_widget(self.names)
@@ -187,7 +187,7 @@ class JoinScreen(Screen):
         super(JoinScreen, self).__init__(**kwargs)
         self.confirm_button = None
         self.background = Image(
-            source='images/background.jpg',
+            source='src/images/background.jpg',
             allow_stretch=True,
             keep_ratio=False)
         self.add_widget(self.background)
@@ -199,7 +199,7 @@ class JoinScreen(Screen):
 
         self.title = Label(
             text='Select a game to join',
-            font_name='fonts/BLKCHCRY.TTF',
+            font_name='src/fonts/BLKCHCRY.TTF',
             font_size='40sp',
             pos_hint={'center_x': .5, 'center_y': .85})
         self.add_widget(self.title)
@@ -226,7 +226,7 @@ class JoinScreen(Screen):
 
         self.join_button = Button(
         text='Join Game',
-        font_name='fonts/Enchanted_Land.otf',
+        font_name='src/fonts/Enchanted_Land.otf',
         font_size=24)
         self.join_button.bind(on_press=GameBox.show_confirmation)
         self.buttons.add_widget(self.join_button)
@@ -234,12 +234,12 @@ class JoinScreen(Screen):
         self.filter_button = Button(
         text='Filter',
         font_size=24,
-        font_name='fonts/Enchanted_Land.otf')
+        font_name='src/fonts/Enchanted_Land.otf')
         self.filter_button.bind(on_press=GameBox.show_filter)
         self.buttons.add_widget(self.filter_button)
 
         self.back_button = Button(
-            font_name='fonts/Enchanted_Land.otf',
+            font_name='src/fonts/Enchanted_Land.otf',
             font_size=24,
             text='Back', 
             size_hint=(.10, .05),
