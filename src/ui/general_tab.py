@@ -21,9 +21,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        name_input = TextInput(multiline=False)
+        self.name_input = TextInput(multiline=False)
         name_box.add_widget(name_label)
-        name_box.add_widget(name_input)
+        name_box.add_widget(self.name_input)
 
         alignment_box = BoxLayout(
             orientation='horizontal',
@@ -34,9 +34,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        alignment_input = TextInput(multiline=False)
+        self.alignment_input = TextInput(multiline=False)
         alignment_box.add_widget(alignment_label)
-        alignment_box.add_widget(alignment_input)
+        alignment_box.add_widget(self.alignment_input)
 
         class_box = BoxLayout(
             orientation='horizontal',
@@ -47,9 +47,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        class_input = TextInput(multiline=False)
+        self.class_input = TextInput(multiline=False)
         class_box.add_widget(class_label)
-        class_box.add_widget(class_input)
+        class_box.add_widget(self.class_input)
 
         level_box = BoxLayout(
             orientation='horizontal',
@@ -60,9 +60,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        level_input = TextInput(multiline=False)
+        self.level_input = TextInput(multiline=False)
         level_box.add_widget(level_label)
-        level_box.add_widget(level_input)
+        level_box.add_widget(self.level_input)
 
         gender_box = BoxLayout(
             orientation='horizontal',
@@ -73,9 +73,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        gender_input = TextInput(multiline=False)
+        self.gender_input = TextInput(multiline=False)
         gender_box.add_widget(gender_label)
-        gender_box.add_widget(gender_input)
+        gender_box.add_widget(self.gender_input)
 
         race_box = BoxLayout(
             orientation='horizontal',
@@ -86,9 +86,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        race_input = TextInput(multiline=False)
+        self.race_input = TextInput(multiline=False)
         race_box.add_widget(race_label)
-        race_box.add_widget(race_input)
+        race_box.add_widget(self.race_input)
 
         age_box = BoxLayout(
             orientation='horizontal',
@@ -99,9 +99,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        age_input = TextInput(multiline=False)
+        self.age_input = TextInput(multiline=False)
         age_box.add_widget(age_label)
-        age_box.add_widget(age_input)
+        age_box.add_widget(self.age_input)
 
         height_box = BoxLayout(
             orientation='horizontal',
@@ -112,9 +112,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        height_input = TextInput(multiline=False)
+        self.height_input = TextInput(multiline=False)
         height_box.add_widget(height_label)
-        height_box.add_widget(height_input)
+        height_box.add_widget(self.height_input)
 
         weight_box = BoxLayout(
             orientation='horizontal',
@@ -125,9 +125,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        weight_input = TextInput(multiline=False)
+        self.weight_input = TextInput(multiline=False)
         weight_box.add_widget(weight_label)
-        weight_box.add_widget(weight_input)
+        weight_box.add_widget(self.weight_input)
 
         size_box = BoxLayout(
             orientation='horizontal',
@@ -138,9 +138,9 @@ class GeneralTab(TabbedPanelHeader):
             halign='right',
             valign='middle',
             text_size=self.size)
-        size_input = TextInput(multiline=False)
+        self.size_input = TextInput(multiline=False)
         size_box.add_widget(size_label)
-        size_box.add_widget(size_input)
+        size_box.add_widget(self.size_input)
 
         box_1 = BoxLayout(
             orientation='vertical',
@@ -160,7 +160,7 @@ class GeneralTab(TabbedPanelHeader):
         box_2.add_widget(height_box)
         box_2.add_widget(weight_box)
         box_2.add_widget(size_box)
-        
+
         top_box = BoxLayout(
             orientation='horizontal',
             size_hint=(.5, .3),
@@ -175,6 +175,6 @@ class GeneralTab(TabbedPanelHeader):
             keep_ratio=False,
             pos_hint={'center_x': .8, 'center_y': .6}))
         content.add_widget(top_box)
-        
+
         self.text = 'General'
         self.content = content
