@@ -64,12 +64,11 @@ class CharacterScreen(Screen):
             text='New')
         buttons.add_widget(new_button)
 
-        file_handler = filehandler.FileHandler()
         load_button = Button(
             font_name='src/fonts/Enchanted_Land.otf',
             font_size=24,
             text='Load')
-        load_button.bind(on_release=file_handler.show_load_popup)
+        load_button.bind(on_release=self.load_sheet)
         buttons.add_widget(load_button)
 
         return buttons
@@ -145,3 +144,6 @@ class CharacterScreen(Screen):
         save_dict = self.general_make_serializable()
         file_handler.show_save_popup(save_dict)
 
+    def load_sheet(self, *args):
+        file_handler = filehandler.FileHandler()
+        file_handler.show_load_popup()
