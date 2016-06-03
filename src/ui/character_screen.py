@@ -1,134 +1,101 @@
-from kivy.uix.screenmanager import Screen
-from kivy.uix.button import Button
+from kivy.uix.tabbedpanel import TabbedPanel, TabbedPanelHeader, TabbedPanelItem
 from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
+from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.uix.textinput import TextInput
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from src.util import filehandler
+from skills_tab import SkillsTab
+from general_tab import GeneralTab
+from attributes_tab import AttributesTab
+from weapon_tab import WeaponTab
+from armor_tab import ArmorTab
 
 class CharacterScreen(Screen):
     def __init__(self, **kwargs):
         super(CharacterScreen, self).__init__(**kwargs)
+        self.add_widget(Image(
+            #change to src
+            source="src/images/background.jpg",
+            allow_stretch=True,
+            keep_ratio=False))
 
         self.layout = FloatLayout()
         self.add_widget(self.layout)
 
-        self.background = Image(
-            source='src/images/background.jpg',
-            allow_stretch=True,
-            keep_ratio=False)
-        self.layout.add_widget(self.background)
+        self.panes = []
 
-        self.buttons = BoxLayout(
-            orientation='vertical',
-            spacing=15, 
-            pos_hint={'center_x': .25, 'center_y': .5},
-            size_hint=(.5, .30))
-        self.layout.add_widget(self.buttons)
+        sheet = self.create_sheet()
+        self.layout.add_widget(sheet)
 
-        self.new_button = Button(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='New',
-            size_hint=(.30, .15),
-            font_size=24)
-
-        self.save_button = Button(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='Save',
-            size_hint=(.30, .15),
-            font_size=24)
-
-        self.load_button = Button(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='Load',
-            size_hint=(.30, .15),
-            font_size=24)
-
-        self.join_button = Button(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='Join',
-            size_hint=(.30, .15),
-            font_size=24)
-
-        self.buttons.add_widget(self.new_button)
-        self.buttons.add_widget(self.save_button)
-        self.buttons.add_widget(self.load_button)
-        self.buttons.add_widget(self.join_button)
-
-        self.labels = BoxLayout(
-            orientation='vertical',
-            spacing=20,
-            pos_hint={'center_x': .35, 'center_y': .85},
-            size_hint=(.5, .22))
-
-        self.name_label = Label(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='Name',
-            font_size=35)
-
-        self.class_label = Label(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='Class',
-            font_size=35)
-
-        self.hp_label = Label(
-            font_name='src/fonts/Enchanted_Land.otf',
-            text='HP',
-            font_size=35)
-
-        self.labels.add_widget(self.name_label)
-        self.labels.add_widget(self.class_label)
-        self.labels.add_widget(self.hp_label)
-
-        self.layout.add_widget(self.labels)
-
-        self.txt_inputs = BoxLayout(
-            orientation='vertical',
-            spacing=20,
-            pos_hint={'center_x': .9, 'center_y': .85},
-            size_hint=(.5, .22))
-
-        self.name_input = TextInput(
-            hint_text='Enter name',
-            size_hint=(.6, .15))
-
-        self.class_input = TextInput(
-            hint_text='Enter Class',
-            size_hint=(.6, .15))
-
-        self.hp_input = TextInput(
-            hint_text='Enter HP',
-            size_hint=(.6, .15))
-
-        self.txt_inputs.add_widget(self.name_input)
-        self.txt_inputs.add_widget(self.class_input)
-        self.txt_inputs.add_widget(self.hp_input)
-
-        self.layout.add_widget(self.txt_inputs)
+        buttons = self.create_buttons()
+        self.add_widget(buttons)
 
         self.back_button = Button(
-            font_name='src/fonts/Enchanted_Land.otf',
             text='Back',
-            font_size=24,
             size_hint=(.10, .05),
-            pos_hint={'center_x': .95, 'bottom_y': .025})
-        self.layout.add_widget(self.back_button)
+            pos_hint={'center_x' : .95, 'bottom_y' : .025})
 
-        # Save and load related code
-        self.file_handler = filehandler.FileHandler()
-        self.save_button.bind(on_release=self.save)
-        self.load_button.bind(on_release=self.file_handler.show_load_popup)
+        self.add_widget(self.back_button)
 
-    def save(self, *args):
-        file_handler = filehandler.FileHandler()
-        save_unit_list = self.make_serializable()
-        file_handler.show_save_popup(save_unit_list)
+    def create_buttons(self):
+        buttons = BoxLayout(
+            orientation='horizontal',
+            size_hint=(.5, .05),
+            pos_hint={'center_x': .325, 'center_y': .1},
+            spacing=15)
 
-    def make_serializable(self):
-        serializable_list = []
-        serializable_list.append(self.name_input.text)
-        serializable_list.append(self.class_input.text)
-        serializable_list.append(self.hp_input.text)
-        return serializable_list
+        save_button = Button(text='Save')
+        buttons.add_widget(save_button)
+
+        new_button = Button(text='New')
+        buttons.add_widget(new_button)
+
+        load_button = Button(text='Load')
+        buttons.add_widget(load_button)
+
+        return buttons
+
+    def create_sheet(self):
+        character_sheet = TabbedPanel(
+            tab_pos='top_mid',
+            size_hint=(.85,.85),
+            pos_hint={'center_x': .5, 'center_y': .5},
+            do_default_tab=False)
+        general_tab = GeneralTab()
+        self.panes.append(general_tab)
+
+        attributes_tab = AttributesTab()
+        self.panes.append(attributes_tab)
+
+        skills_tab = SkillsTab()
+        self.panes.append(skills_tab)
+
+        weapon_tab = WeaponTab()
+        self.panes.append(weapon_tab)
+        
+        armor_tab = ArmorTab()
+        self.panes.append(armor_tab)
+
+        spells_tab = self.create_spells()
+        self.panes.append(spells_tab)
+
+        character_sheet.add_widget(general_tab)
+        character_sheet.add_widget(attributes_tab)
+        #NOTE ADD FEATS TO SKILLS
+        character_sheet.add_widget(skills_tab)
+        character_sheet.add_widget(weapon_tab)
+        character_sheet.add_widget(armor_tab)
+        character_sheet.add_widget(spells_tab)
+
+        return character_sheet
+    
+    def create_spells(self):
+        spells = TabbedPanelHeader(text='Spells')
+        return spells
+
 

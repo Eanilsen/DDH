@@ -187,7 +187,7 @@ class JoinScreen(Screen):
         super(JoinScreen, self).__init__(**kwargs)
         self.confirm_button = None
         self.background = Image(
-            source='images/background.jpg',
+            source='src/images/background.jpg',
             allow_stretch=True,
             keep_ratio=False)
         self.add_widget(self.background)
