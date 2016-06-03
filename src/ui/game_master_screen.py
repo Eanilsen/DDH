@@ -1,4 +1,3 @@
-from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import Button
 from kivy.uix.tabbedpanel import *
 from kivy.uix.boxlayout import BoxLayout
@@ -8,7 +7,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
-from random import random, shuffle
+from random import random
 
 class GameMasterScreen(Screen):
     outer_layout = GridLayout(rows=2)
@@ -33,35 +32,7 @@ class GameMasterScreen(Screen):
         self.outer_layout.add_widget(self.top_container)
         self.outer_layout.add_widget(self.bottom_container)
         self.add_widget(self.outer_layout)
-
         self.add_widget(self.back_button)
-
-    def test(self, player):
-        self.top_container.add_widget(player)
-
-class CharacterInformation(GridLayout):
-    def __init__(self, portrait, name, role, health, mana, **kwargs):
-        super(CharacterInformation, self).__init__(**kwargs)
-
-        self.size_hint = (.3, .1)
-        self.cols = 3
-
-        character = Image(source=portrait)
-        player_name = Label(text=name)
-        player_role = Label(text=role)
-        player_health = Label(text=health)
-        player_mana = Label(text=mana)
-
-        self.role_box = BoxLayout(orientation="vertical")
-        self.stats_box = BoxLayout(orientation="vertical")
-        self.role_box.add_widget(player_name)
-        self.role_box.add_widget(player_role)
-        self.stats_box.add_widget(player_health)
-        self.stats_box.add_widget(player_mana)
-
-        self.add_widget(character)
-        self.add_widget(self.role_box)
-        self.add_widget(self.stats_box)
 
 '''
     This is the tabbed container. Most of the information from Character Sheets
@@ -115,8 +86,6 @@ class MagicTab(TabbedPanelItem):
         self.add_widget(tab_magic_ui)
 
 
-
-
 '''
     PlayersPanel use the Player class to add as many players as there are names in the array
     player_names. I suggest that names are taken from character sheet and added there, or something
@@ -167,9 +136,10 @@ class Player(GridLayout):
         self.name = Label(text=name)
         self.image = Image(source=portrait)
         self.role = Label(text=role)
-        self.health = Label(text=health)
-        self.mana = Label(text=mana)
-
+        self.health = Label(text=health,
+                            background_color=(0, 0 , 1))
+        self.mana = Label(text=mana,
+                          background_color=(0, 1, 0))
         self.cols = 3
 
         self.role_box = BoxLayout(orientation="vertical")
@@ -192,8 +162,10 @@ class Player(GridLayout):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             GameMasterScreen.top_container.clear_widgets()
-            currentCharacter = Player(self.image.source, self.name.text, self.role.text, self.health.text, self.mana.text)
-            GameMasterScreen.top_container.add_widget(currentCharacter)
+            current_character = Player(self.image.source, self.name.text, self.role.text, self.health.text, self.mana.text)
+            GameMasterScreen.top_container.add_widget(current_character)
+
+
 
 
 

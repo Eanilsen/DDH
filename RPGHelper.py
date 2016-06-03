@@ -1,7 +1,7 @@
 from kivy.uix.screenmanager import ScreenManager, Screen, NoTransition
 from kivy.app import App
 from src.ui.home_screen import HomeScreen
-from src.ui.join_screen import JoinScreen, GameBox
+from src.ui.join_screen import JoinScreen
 from src.ui.host_screen import HostScreen
 from src.ui.game_player_screen import GamePlayerScreen
 from src.ui.game_master_screen import GameMasterScreen
@@ -22,8 +22,6 @@ class Join(JoinScreen):
         super(Join, self).__init__(**kwargs)
         self.back_button.bind(on_release=switch_to_home)
         self.join_button.bind(on_release=switch_to_game_player_screen)
-
-
 
 class Host(HostScreen):
     def __init__(self, **kwargs):
