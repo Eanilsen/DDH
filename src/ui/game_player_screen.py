@@ -8,49 +8,34 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.image import Image
 from kivy.graphics import *
 from kivy.uix.gridlayout import GridLayout
-from kivy.uix.dropdown import DropDown  # Used for dropdown
-from random import random, shuffle
+from random import random
 
 class GamePlayerScreen(Screen):
+    outer_layout = GridLayout(rows=2)
+    top_container = GridLayout(cols=2,
+                               pos_hint={'center_x': .5, 'top_y': 0},
+                               size_hint=(1, .1),
+                               spacing=800)
+    bottom_container = BoxLayout(orientation='horizontal',
+                                 pos_hint={'center_x': .5, 'top_y': 0},
+                                 spacing=50)  # Spacing between tabPanel and players
+    back_button = Button(text="Back",
+                         pos_hint={"right_x": .5, "top_y": .5},
+                         size_hint=(.08, .03))
+    target_character_box = BoxLayout(orientation='horizontal')
+
     def __init__(self, **kwargs):
         super(GamePlayerScreen, self).__init__(**kwargs)
         self.background = Image(source='src/images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
-        # Create an outer layout for structure
-        self.outer_layout = BoxLayout(orientation='vertical')
-        # Create a bottom container, as opposite to the CharacterInformation() at the top
-        self.bottom_container = BoxLayout(orientation='horizontal',
-                                          spacing=50)  # Spacing between tabbed_panel and all_players
-        self.add_widget(self.outer_layout)
-        # Add the tabbed container to the bottom layout
         self.bottom_container.add_widget(TabbedActivityContainer())
-        # Add the player panel to the bottom layout
         self.bottom_container.add_widget(PlayersPanel(6))
-        # This is the top container which holds character_information as opposite to the bottom container
-        self.outer_layout.add_widget(CharacterInformation("src/images/portrait1.gif",
-                                                          "Character Name",
-                                                          "1337/2000",
-                                                          "105/200"))
-        # modular_panel holds the tabbed_panel and all_players containers
+        self.top_container.add_widget(Player("src/images/portrait1.gif", "Name", "Role", "0/1000", "0,100"))
+        self.top_container.add_widget(self.target_character_box)
+        self.outer_layout.add_widget(self.top_container)
         self.outer_layout.add_widget(self.bottom_container)
-
-class CharacterInformation(BoxLayout):
-    def __init__(self, portrait, player_name, player_health, player_mana, **kwargs):
-        super(CharacterInformation, self).__init__(**kwargs)
-
-        self.orientation = 'horizontal'
-        self.size_hint = (1, .12)
-        self.character = Image(source=portrait)
-        self.player_name = Label(text=player_name)
-        self.player_health = Label(text=player_health)
-        self.player_mana = Label(text=player_mana)
-        text_box = BoxLayout(orientation='vertical')
-        text_box.add_widget(self.player_name)
-        text_box.add_widget(self.player_health)
-        text_box.add_widget(self.player_mana)
-
-        self.add_widget(self.character)
-        self.add_widget(text_box)
+        self.add_widget(self.outer_layout)
+        self.add_widget(self.back_button)
 
 '''
     This is the tabbed container. Most of the information from Character Sheets
@@ -61,7 +46,7 @@ class TabbedActivityContainer(TabbedPanel):
     def __init__(self, **kwargs):
         super(TabbedActivityContainer, self).__init__(**kwargs)
 
-        self.tab_pos = 'top_left'
+        self.tab_pos = 'top_mid'
         self.do_default_tab = False
         self.background_color = (0, 0, 0, .5)
         self.size_hint = (.8, .8)
@@ -119,13 +104,14 @@ class PlayersPanel(BoxLayout):
         # Sample players
         player_names = ["Prof", "Django", "ZeltaVoid", "xXxSlayerxXx", "Init69", "Mao"]
         player_roles = ["Paladin", "Magus", "Druid", "Alchemist", "Summoner", "Fighter", "Elitist"]
-        sample_portrait = ["src/images/portrait1.gif", "src/images/portrait2.gif", "src/images/portrait3.gif", "src/images/portrait7.gif",
-                           "src/images/portrait4.gif", "src/images/portrait5.gif", "src/images/portrait6.gif"]
+        sample_portrait = ["src/images/portrait1.gif", "src/images/portrait2.gif", "src/images/portrait3.gif",
+                           "src/images/portrait7.gif", "src/images/portrait4.gif", "src/images/portrait5.gif",
+                           "src/images/portrait6.gif"]
         for i in range(0, player_amount):
             current_player = player_names.pop()
             current_role = player_roles.pop()
             current_image = sample_portrait.pop()
-            self.player = Player(current_image, current_player, current_role)
+            self.player = Player(current_image, current_player, current_role, "0/1000", "0/100")
             self.add_widget(self.player)
 
 '''
@@ -134,9 +120,9 @@ class PlayersPanel(BoxLayout):
                                             Player name, Player role, Player portrait
 '''
 class Player(GridLayout):
-    def __init__(self, image, name, role, **kwargs):
+    def __init__(self, portrait, name, role, health, mana, **kwargs):
         super(Player, self).__init__(**kwargs)
-        color = (random(), 1, 1, .5)
+        color = (random(), 1, 1, .3)
         with self.canvas:
             Color(*color, mode='hsv')  # Black with 50 Opacity (RBGA)
             self.rect = Rectangle(source='src/images/texture.jpg',
@@ -148,14 +134,41 @@ class Player(GridLayout):
         self.bind(size=self.update_rect)
 
         self.name = Label(text=name)
-        self.image = Image(source=image)
+        self.image = Image(source=portrait)
         self.role = Label(text=role)
+        self.health = Label(text=health)
+        self.mana = Label(text=mana)
+
         self.cols = 3
 
-        self.add_widget(self.name)
-        self.add_widget(self.role)
+        self.role_box = BoxLayout(orientation="vertical")
+        self.stats_box = BoxLayout(orientation="vertical")
+        self.role_box.add_widget(self.name)
+        self.role_box.add_widget(self.role)
+        self.stats_box.add_widget(self.health)
+        self.stats_box.add_widget(self.mana)
+
+        self.add_widget(self.role_box)
+        self.add_widget(self.stats_box)
         self.add_widget(self.image)
+
+        print self.name
 
     def update_rect(self, *args):
         self.rect.pos = self.pos
         self.rect.size = self.size
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            GamePlayerScreen.target_character_box.clear_widgets()
+            target_character = Player(self.image.source, self.name.text, self.role.text, self.health.text, self.mana.text)
+            GamePlayerScreen.target_character_box.add_widget(target_character)
+
+
+
+
+
+
+
+
+

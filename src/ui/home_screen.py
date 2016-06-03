@@ -4,10 +4,12 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
+from kivy.core.window import Window
 
 class HomeScreen(Screen):
     def __init__(self, **kwargs):
         super(HomeScreen, self).__init__(**kwargs)
+        Window.maximize()
         self.background = Image(source='src/images/background.jpg', allow_stretch=True, keep_ratio=False)
         self.add_widget(self.background)
 
@@ -22,7 +24,7 @@ class HomeScreen(Screen):
         self.buttons = BoxLayout(
             size_hint=(.25, .15), 
             pos_hint={'center_x' : .5, 'center_y' : .5})
-        self.buttons.spacing = 5;
+        self.buttons.spacing = 5
         self.buttons.orientation = 'vertical'
 
         self.join_button = Button(

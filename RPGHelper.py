@@ -36,6 +36,11 @@ class GamePlayer(GamePlayerScreen):
 class GameMaster(GameMasterScreen):
     def __init__(self, **kwargs):
         super(GameMaster, self).__init__(**kwargs)
+        self.back_button.bind(on_release=switch_to_home)
+        print self.back_button.text
+
+    def test(self):
+        print "test"
 
 class Character(CharacterScreen):
     def __init__(self, **kwargs):
