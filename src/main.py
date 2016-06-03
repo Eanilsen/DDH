@@ -27,8 +27,6 @@ class Host(HostScreen):
         self.back_button.bind(on_release=switch_to_home)
         self.start_game_button.bind(on_release=switch_to_game_screen)
 
-
-
 class Game(GameScreen):
     def __init__(self, **kwargs):
         super(Game, self).__init__(**kwargs)
