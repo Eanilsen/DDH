@@ -12,6 +12,8 @@ from util import filehandler
 from skills_tab import SkillsTab
 from general_tab import GeneralTab
 from attributes_tab import AttributesTab
+from weapon_tab import WeaponTab
+from armor_tab import ArmorTab
 
 class CharacterScreen(Screen):
     def __init__(self, **kwargs):
@@ -73,8 +75,11 @@ class CharacterScreen(Screen):
         skills_tab = SkillsTab()
         self.panes.append(skills_tab)
 
-        gear_tab = self.create_gear()
-        self.panes.append(gear_tab)
+        weapon_tab = WeaponTab()
+        self.panes.append(weapon_tab)
+        
+        armor_tab = ArmorTab()
+        self.panes.append(armor_tab)
 
         spells_tab = self.create_spells()
         self.panes.append(spells_tab)
@@ -83,15 +88,12 @@ class CharacterScreen(Screen):
         character_sheet.add_widget(attributes_tab)
         #NOTE ADD FEATS TO SKILLS
         character_sheet.add_widget(skills_tab)
-        character_sheet.add_widget(gear_tab)
+        character_sheet.add_widget(weapon_tab)
+        character_sheet.add_widget(armor_tab)
         character_sheet.add_widget(spells_tab)
 
         return character_sheet
     
-    def create_gear(self):
-        gear = TabbedPanelHeader(text='Gear')
-        return gear
-
     def create_spells(self):
         spells = TabbedPanelHeader(text='Spells')
         return spells
