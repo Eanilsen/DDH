@@ -11,7 +11,8 @@ from kivy.uix.image import Image
 from kivy.uix.screenmanager import Screen
 from kivy.uix.popup import Popup
 from kivy.uix.textinput import TextInput
-  
+from src.util import filehandler
+
 class JoinScreen(Screen):
     """
     Implementation of the join screen
@@ -42,17 +43,27 @@ class JoinScreen(Screen):
             size_hint=(.2, .1),
             pos_hint={'center_x': .5, 'center_y': .4})
 
+        self.load_button = Button(text='Load .ddh file',
+                                  size_hint=(.2, .05),
+                                  pos_hint={'center_x': .5, 'center_y': .3})
+
+        self.load_button.bind(on_release=self.show_load)
+
         self.float_layout = FloatLayout()
         self.float_layout.add_widget(self.join_label)
         self.float_layout.add_widget(self.enter_game_input)
         self.float_layout.add_widget(self.join_button)
+        self.float_layout.add_widget(self.load_button)
         self.add_widget(self.float_layout)
 
         self.back_button = Button(
             font_name='src/fonts/Enchanted_Land.otf',
-            text='Back', 
+            text='Back',
             font_size=24,
-            size_hint=(.10, .05), 
+            size_hint=(.10, .05),
             pos_hint={'center_x' : .95, 'bottom_y' : .025})
         self.add_widget(self.back_button)
-        
+
+    def show_load(self, *args):
+        file_handler = filehandler.FileHandler()
+        file_handler.show_load_popup()
