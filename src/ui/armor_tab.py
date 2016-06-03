@@ -46,8 +46,11 @@ class ArmorTab(TabbedPanelHeader):
         super(ArmorTab, self).__init__(**kwargs)
 
         add_armor_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
             text='Add Armor',
-            size_hint=(.2, .05),
+            halign='center',
+            size_hint=(.2, .07),
             pos_hint={'center_x': .5, 'center_y': .1})
         print popup
         popup = self.create_popup()

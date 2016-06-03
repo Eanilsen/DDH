@@ -48,8 +48,10 @@ class WeaponTab(TabbedPanelHeader):
         super(WeaponTab, self).__init__(**kwargs)
         
         add_weapon_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
             text='Add Weapon',
-            size_hint=(.2, .05),
+            size_hint=(.2, .07),
             pos_hint={'center_x': .5, 'center_y': .1})
         print popup
         popup = self.create_popup()
