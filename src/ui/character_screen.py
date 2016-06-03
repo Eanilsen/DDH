@@ -36,6 +36,8 @@ class CharacterScreen(Screen):
         self.add_widget(buttons)
 
         self.back_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
             text='Back',
             size_hint=(.10, .05),
             pos_hint={'center_x' : .95, 'bottom_y' : .025})
@@ -49,15 +51,24 @@ class CharacterScreen(Screen):
             pos_hint={'center_x': .325, 'center_y': .1},
             spacing=15)
 
-        save_button = Button(text='Save')
+        save_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
+            text='Save')
         save_button.bind(on_release=self.save_sheet)
         buttons.add_widget(save_button)
 
-        new_button = Button(text='New')
+        new_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
+            text='New')
         buttons.add_widget(new_button)
 
         file_handler = filehandler.FileHandler()
-        load_button = Button(text='Load')
+        load_button = Button(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
+            text='Load')
         load_button.bind(on_release=file_handler.show_load_popup)
         buttons.add_widget(load_button)
 
@@ -69,19 +80,30 @@ class CharacterScreen(Screen):
             size_hint=(.85,.85),
             pos_hint={'center_x': .5, 'center_y': .5},
             do_default_tab=False)
-        general_tab = GeneralTab()
+        general_tab = GeneralTab(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24)
+
         self.panes.append(general_tab)
 
-        attributes_tab = AttributesTab()
+        attributes_tab = AttributesTab(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24)
         self.panes.append(attributes_tab)
 
-        skills_tab = SkillsTab()
+        skills_tab = SkillsTab(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24)
         self.panes.append(skills_tab)
 
-        weapon_tab = WeaponTab()
+        weapon_tab = WeaponTab(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24)
         self.panes.append(weapon_tab)
 
-        armor_tab = ArmorTab()
+        armor_tab = ArmorTab(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24)
         self.panes.append(armor_tab)
 
         spells_tab = self.create_spells()
@@ -98,7 +120,10 @@ class CharacterScreen(Screen):
         return character_sheet
 
     def create_spells(self):
-        spells = TabbedPanelHeader(text='Spells')
+        spells = TabbedPanelHeader(
+            font_name='src/fonts/Enchanted_Land.otf',
+            font_size=24,
+            text='Spells')
         return spells
 
     def general_make_serializable(self):
