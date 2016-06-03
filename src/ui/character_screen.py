@@ -50,12 +50,15 @@ class CharacterScreen(Screen):
             spacing=15)
 
         save_button = Button(text='Save')
+        save_button.bind(on_release=self.save_sheet)
         buttons.add_widget(save_button)
 
         new_button = Button(text='New')
         buttons.add_widget(new_button)
 
+        file_handler = filehandler.FileHandler()
         load_button = Button(text='Load')
+        load_button.bind(on_release=file_handler.show_load_popup)
         buttons.add_widget(load_button)
 
         return buttons
@@ -77,7 +80,7 @@ class CharacterScreen(Screen):
 
         weapon_tab = WeaponTab()
         self.panes.append(weapon_tab)
-        
+
         armor_tab = ArmorTab()
         self.panes.append(armor_tab)
 
@@ -93,9 +96,27 @@ class CharacterScreen(Screen):
         character_sheet.add_widget(spells_tab)
 
         return character_sheet
-    
+
     def create_spells(self):
         spells = TabbedPanelHeader(text='Spells')
         return spells
 
+    def general_make_serializable(self):
+        general_dict = {}
+        general_dict['name'] = self.panes[0].name_input.text
+        general_dict['alignment'] = self.panes[0].alignment_input.text
+        general_dict['class'] = self.panes[0].class_input.text
+        general_dict['level'] = self.panes[0].level_input.text
+        general_dict['gender'] = self.panes[0].gender_input.text
+        general_dict['race'] = self.panes[0].race_input.text
+        general_dict['age'] = self.panes[0].age_input.text
+        general_dict['height'] = self.panes[0].height_input.text
+        general_dict['weight'] = self.panes[0].weight_input.text
+        general_dict['size'] = self.panes[0].size_input.text
+        return general_dict
+
+    def save_sheet(self, *args):
+        file_handler = filehandler.FileHandler()
+        save_dict = self.general_make_serializable()
+        file_handler.show_save_popup(save_dict)
 

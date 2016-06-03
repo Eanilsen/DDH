@@ -11,7 +11,7 @@ from kivy.graphics import Rectangle, Color
 popup = None
 
 class ArmorTab(TabbedPanelHeader):
-    
+
     all_armors = [
         'Armorered Kilt',
         'Armored Coat',
@@ -40,11 +40,11 @@ class ArmorTab(TabbedPanelHeader):
             pos_hint={'center_x': .5, 'center_y': .5},
             spacing=5)
     armor_owned = []
-    
+
     def __init__(self, **kwargs):
         global popup
         super(ArmorTab, self).__init__(**kwargs)
-        
+
         add_armor_button = Button(
             text='Add Armor',
             size_hint=(.2, .05),
@@ -52,23 +52,23 @@ class ArmorTab(TabbedPanelHeader):
         print popup
         popup = self.create_popup()
         add_armor_button.bind(on_press=popup.open)
-        
+
         content = FloatLayout()
         content.add_widget(self.armor_box)
         content.add_widget(add_armor_button)
-        
+
         self.content=content
         self.text = 'Armor'
-    
+
     def create_popup(self):
         content = BoxLayout(orientation='vertical', spacing=10)
         select_button = Button(
             size_hint=(.5, .2),
             text='Select',
             pos_hint={'center_x': .5, 'center_y': .2});
-            
+
         content.add_widget(self.armor_overview)
-        
+
         popup = Popup(
             content=content,
             size_hint=(.8, .8))
@@ -77,12 +77,12 @@ class ArmorTab(TabbedPanelHeader):
             self.armor_overview.add_widget(label)
             self.armor_list.append(label)
         return popup
-        
+
 class ArmorLabel(Label):
     def __init__(self, **kwargs):
         super(ArmorLabel, self).__init__(**kwargs)
         self.highlighted = False
-        
+
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             self.clear_highlights(self)
@@ -125,7 +125,7 @@ class ArmorLabel(Label):
                         hint_text='speed 20ft',
                         size_hint=(.8, .5),
                         pos_hint={'center_x': .5, 'center_y': .6})
-                    
+
                     armor.add_widget(armor_label)
                     armor.add_widget(armor_bonus)
                     armor.add_widget(armor_dex_bonus)
@@ -138,12 +138,12 @@ class ArmorLabel(Label):
                     popup.dismiss()
             else:
                 with self.canvas:
-                    
+
                     Color(255, 255, 250, .3)
                     self.rectangle = Rectangle(pos=(self.x, self.y),
                         size=(self.width, self.height))
                     self.highlighted  = True
-    
+
     def display_too_much_armor(self):
         layout = FloatLayout()
         popup = Popup(
@@ -161,10 +161,9 @@ class ArmorLabel(Label):
         layout.add_widget(label)
         layout.add_widget(button)
         popup.open()
-            
+
     def clear_highlights(self, *args):
         for s in ArmorTab.armor_list:
             if s.highlighted and s != self:
                 s.canvas.remove(s.rectangle)
                 s.highlighted = False
-        
